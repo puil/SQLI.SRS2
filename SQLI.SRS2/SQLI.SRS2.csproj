@@ -1,9 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <AssemblyName>SQLI.SRS2</AssemblyName>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Compile Remove="Shell_old.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Shell_old.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Infragistics.WPF.DialogWindow" Version="20.2.16" />
+    <PackageReference Include="Infragistics.WPF.Editors" Version="20.2.16" />
+    <PackageReference Include="Infragistics.WPF.Themes.Metro" Version="20.2.16" />
+    <PackageReference Include="Infragistics.WPF.Themes.MetroDark" Version="20.2.16" />
+    <PackageReference Include="Prism.Unity" Version="8.0.0.1909" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\SQLI.SRS2.Modules.Disclosure\SQLI.SRS2.Modules.Disclosure.csproj" />
+    <ProjectReference Include="..\Modules\SQLI.SRS2.Modules.Menu\SQLI.SRS2.Modules.Menu.csproj" />
+    <ProjectReference Include="..\Modules\SQLI.SRS2.Modules.Showcase\SQLI.SRS2.Modules.Showcase.csproj" />
+    <ProjectReference Include="..\SQLI.SRS2.Core\SQLI.SRS2.Core.csproj" />
+    <ProjectReference Include="..\Services\SQLI.SRS2.Services.Interfaces\SQLI.SRS2.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\Services\SQLI.SRS2.Services\SQLI.SRS2.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Shell.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Metro.Generic.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\MetroDark.Generic.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\JTILogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

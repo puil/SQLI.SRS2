@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="SQLI.SRS2.Modules.Menu.Views.FullMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Width="240" MaxWidth="600">
+
+    <UserControl.Resources>
+
+        <!-- TreeView Brushes -->
+        <LinearGradientBrush x:Key="TreeViewShadowSeparator" EndPoint="1,0.5" StartPoint="0,0.5">
+            <GradientStop Color="{DynamicResource Color_004}" Offset="0"/>
+            <GradientStop Color="{DynamicResource Color_006}" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!--  Release Status Icons  -->
+        <Thickness x:Key="StatusIconInnerMargin">5,0</Thickness>
+        <Thickness x:Key="StatusIconOuterMargin">8,0,8,0</Thickness>
+        
+        <!-- Data templates -->
+        <DataTemplate x:Key="MenuItemDataTemplate">
+            <TextBlock Text="{Binding Description}"/>
+        </DataTemplate>
+        
+    </UserControl.Resources>
+
+    <!--<Grid>
+        <Button Margin="10"
+                Content="Settings"
+                Command="{Binding OpenSettingsCommand}"/>
+    </Grid>-->
+
+    <DockPanel>
+        <Grid Height="46" VerticalAlignment="Top" DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="31"/>
+            </Grid.ColumnDefinitions>
+            <!--<controls:SearchControl x:Name="SearchArea" Grid.Column="0"/>-->
+            <!--<controls:MenuExpansionButton Grid.Column="1" MinWidth="31" Height="46" Content="Button" x:Name="btnToggleMenu" Click="btnToggleMenu_Click" IsMenuExpanded="{Binding Path=IsMenuExpanded, ElementName=mainWindow, Mode=Default}" Style="{DynamicResource MenuExpansionButtonStyle1}"/>-->
+        </Grid>
+        <!--<Rectangle Width="5" Fill="{StaticResource TreeViewShadowSeparator}" DockPanel.Dock="Right" IsHitTestVisible="False"/>-->
+        <ListBox Margin="6,0,0,0"
+                 ItemsSource="{Binding MenuItems, Mode=OneTime}"
+                 ItemTemplate="{StaticResource MenuItemDataTemplate}"
+                 SelectedItem="{Binding SelectedMenuItem}"/>
+        
+
+        <!--<TreeView Margin="6,0,0,0" ItemsSource="{Binding MenuItems, Mode=OneTime}" 
+                  BorderBrush="{x:Null}" BorderThickness="0,0,0,0" 
+                  ItemTemplate="{StaticResource MenuItemDataTemplate}">
+
+        </TreeView>-->
+
+        <!--<TreeView Margin="6,0,0,0" ItemsSource="{Binding MenuItems, Mode=OneTime}" 
+                  BorderBrush="{x:Null}" BorderThickness="0,0,0,0" 
+                  Style="{StaticResource TreeViewStyle}" 
+                  ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                  ItemTemplate="{StaticResource MenuItemDataTemplate}"/>-->
+    </DockPanel>
+</UserControl>
