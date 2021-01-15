@@ -16,18 +16,20 @@
         WindowState="{Binding WindowState}"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        Icon="Images/JTILogo.ico">
 
     <Window.Resources>
-        <res:Strings x:Key="Strings"/>
+        <!--<res:ResourceStrings x:Key="Strings"/>-->
 
         <coreConverters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" True="Visible" False="Collapsed" />
         <coreConverters:BooleanToVisibilityConverter x:Key="NotBooleanToVisibilityConverter" True="Collapsed" False="Visible" />
 
         <!-- Window Brushes -->
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{DynamicResource Color_009}" />
-        <SolidColorBrush x:Key="WindowTitleBarIconsBrush" Color="{StaticResource Color_002}" />
-        <SolidColorBrush x:Key="WindowTitleBarBackgroundBrush" Color="{StaticResource Color_070}" />
+        <SolidColorBrush x:Key="WindowTitleBarIconsBrush" Color="{DynamicResource Color_002}" />
+        <SolidColorBrush x:Key="WindowTitleBarBackgroundBrush" Color="{DynamicResource Color_006}" />
+        <SolidColorBrush x:Key="WindowTitleForegroundBrush" Color="{DynamicResource Color_006}" />
 
         <!-- Styles -->
         <Style x:Key="DialogButtonStyle" TargetType="{x:Type Button}">
@@ -88,34 +90,6 @@
         <Style TargetType="{x:Type igWindows:TabItemEx}" BasedOn="{StaticResource {x:Type igWindows:TabItemEx}}">
             <Setter Property="Header" Value="{Binding DataContext.Title}"/>
         </Style>
-
-        <!--<Style TargetType="TabItem">
-            <Setter Property="Header" Value="{Binding DataContext.Title}"/>
-            <Setter Property="HeaderTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <ContentControl VerticalAlignment="Center" HorizontalAlignment="Center"
-                                            Margin="0,0,7,0"
-                                            Content="{Binding}"/>
-
-                            <Button Grid.Column="1" Content="x">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <coreActions:CloseTabAction/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>
-                        </Grid>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter> 
-        </Style>-->
     </Window.Resources>
 
     <Grid Background="{StaticResource WindowBackgroundBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Visibility="Visible">
@@ -130,7 +104,7 @@
                     <ColumnDefinition Width="*" MinWidth="95"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="../Images/JTILogo.png" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="bgArtwork" Width="23" Height="21" Margin="14,0,0,0"/>
-                <TextBlock Text="" Foreground="White" Grid.Column="0" VerticalAlignment="Center" Margin="44,0,30,0" FontSize="18"/>
+                <TextBlock Text="{x:Static res:ResourceStrings.Window_Main_Title}" Foreground="{DynamicResource ForegroundBrush}" Grid.Column="0" VerticalAlignment="Center" Margin="44,0,30,0" FontSize="18"/>
                 <Rectangle Fill="Transparent"  Grid.ColumnSpan="3" MouseDown="TitleBarMouseDown"/>
                 <StackPanel Grid.Column="2" 
                             Margin="0,0,6,0"

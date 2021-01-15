@@ -3,21 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:res="clr-namespace:SQLI.SRS2.Modules.Disclosure.Resources"
              xmlns:igEdit="http://infragistics.com/Editors"
              xmlns:igDP="http://infragistics.com/DataPresenter"
              xmlns:coreConverters="clr-namespace:SQLI.SRS2.Core.Converters;assembly=SQLI.SRS2.Core"
+             xmlns:coreExtensions="clr-namespace:SQLI.SRS2.Core.Extensions;assembly=SQLI.SRS2.Core"
              xmlns:busDisclosure="clr-namespace:SQLI.SRS2.Business.Disclosure;assembly=SQLI.SRS2.Business">
     <UserControl.Resources>
         <coreConverters:UniformGridColumnsConverter x:Key="UniformGridColumnsConverter" SizeToChangeColumns="700"/>
-
-        <ObjectDataProvider x:Key="HistoryStatusProviderValues"
-                            MethodName="GetValues"
-                            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="busDisclosure:HistoryStatusEnum"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
 
         <Style x:Key="TitleStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
@@ -54,6 +47,15 @@
             <igDP:XamDataGrid.FieldLayoutSettings>
                 <igDP:FieldLayoutSettings SelectionTypeRecord="None"/>
             </igDP:XamDataGrid.FieldLayoutSettings>
+            <igDP:XamDataGrid.FieldLayouts>
+                <igDP:FieldLayout>
+                    <igDP:FieldLayout.Fields>
+                        <igDP:Field Name="Id" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Id}"/>
+                        <igDP:Field Name="Name" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Name}"/>
+                        <igDP:Field Name="HistoryStatus" Label="{x:Static res:ResourceStrings.DisclosureMaterial_HistoryStatus}"/>
+                    </igDP:FieldLayout.Fields>
+                </igDP:FieldLayout>
+            </igDP:XamDataGrid.FieldLayouts>
         </igDP:XamDataGrid>
 
         <GridSplitter ResizeDirection="Columns" Width="5"/>
@@ -66,57 +68,57 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Basic Disclosure Data"
-                       Margin="10"
-                       Style="{StaticResource TitleStyle}"/>
+                <TextBlock Text="{x:Static res:ResourceStrings.DisclosureView_Title}"
+                           Margin="10"
+                           Style="{StaticResource TitleStyle}"/>
 
                 <UniformGrid Grid.Row="1"
                          Columns="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ActualWidth, Converter={StaticResource UniformGridColumnsConverter}}">
 
                     <DockPanel Margin="5">
-                        <Label Content="Material ID"/>
+                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Id}"/>
                         <igEdit:XamTextEditor Text="{Binding Id}"/>
                     </DockPanel>
 
                     <DockPanel Margin="5">
-                        <Label Content="Name"/>
+                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Name}"/>
                         <igEdit:XamTextEditor Text="{Binding Name}"/>
                     </DockPanel>
 
                     <DockPanel Margin="5">
-                        <Label Content="History status"/>
-                        <igEdit:XamComboEditor ItemsSource="{Binding Source={StaticResource HistoryStatusProviderValues}}"
-                                               SelectedItem="{Binding HistoryStatus}"/>
+                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_HistoryStatus}"/>
+                        <ComboBox ItemsSource="{Binding Source={coreExtensions:EnumBindingSource {x:Type busDisclosure:HistoryStatusEnum}}}"
+                                  SelectedItem="{Binding HistoryStatus}"/>
                     </DockPanel>
 
                     <DockPanel Margin="5">
-                        <Label Content="Received on"/>
+                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_ReceivedOn}"/>
                         <igEdit:XamDateTimeEditor Mask="{}{date}"
-                                              DisplayMode="IncludeBoth"
-                                              Value="{Binding ReceivedOn}"/>
+                                                  DisplayMode="IncludeBoth"
+                                                  Value="{Binding ReceivedOn}"/>
                     </DockPanel>
 
                     <DockPanel Margin="5">
-                        <Label Content="Valid from"/>
+                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_ValidFrom}"/>
                         <igEdit:XamDateTimeEditor Mask="{}{date}"
-                                              DisplayMode="IncludeBoth"
-                                              Value="{Binding ValidFrom}"/>
+                                                  DisplayMode="IncludeBoth"
+                                                  Value="{Binding ValidFrom}"/>
                     </DockPanel>
 
                     <DockPanel Margin="5">
-                        <Label Content="Valid to"/>
+                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_ValidTo}"/>
                         <igEdit:XamDateTimeEditor Mask="{}{date}"
-                                              DisplayMode="IncludeBoth"
-                                              Value="{Binding ValidTo}"/>
+                                                  DisplayMode="IncludeBoth"
+                                                  Value="{Binding ValidTo}"/>
                     </DockPanel>
 
                     <DockPanel Margin="5">
-                        <Label Content="Incomplete"/>
+                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Incomplete}"/>
                         <igEdit:XamCheckEditor Value="{Binding Incomplete}"/>
                     </DockPanel>
 
                     <DockPanel Margin="5">
-                        <Label Content="TPD2 relevant"/>
+                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Tpd2Relevant}"/>
                         <igEdit:XamCheckEditor Value="{Binding Tpd2Relevant}"/>
                     </DockPanel>
                 </UniformGrid>

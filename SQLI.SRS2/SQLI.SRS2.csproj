@@ -9,6 +9,10 @@
     <Compile Remove="Shell_old.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Images\JTILogo.ico" />
+    <None Remove="Images\JTILogo.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Remove="Shell_old.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +31,12 @@
     <ProjectReference Include="..\Services\SQLI.SRS2.Services\SQLI.SRS2.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\JTILogo.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\JTILogo.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Shell.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -41,19 +51,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\JTILogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Resources\Strings.Designer.cs">
+    <Compile Update="Resources\ResourceStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Strings.resx</DependentUpon>
+      <DependentUpon>ResourceStrings.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Strings.resx">
+    <EmbeddedResource Update="Resources\ResourceStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <LastGenOutput>ResourceStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
