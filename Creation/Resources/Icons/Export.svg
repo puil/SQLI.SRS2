@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icons/Export</title>
+    <defs>
+        <path d="M26.5979903,24.6523438 L32.0000043,19.25 L26.5979903,13.8476562 L25.5433671,14.9023438 L29.1525218,18.5234375 L11.0715942,18.5234375 L11.0715942,20.0234375 L29.1173677,20.0234375 L25.5433671,23.5976562 L26.5979903,24.6523438 Z M9.57168579,24.5 L9.57168579,14 L8.07177734,14 L8.07177734,24.5 L9.57168579,24.5 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/Export" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="" fill-rule="nonzero" fill="#000000">
+            <use xlink:href="#path-1"></use>
+            <use xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>

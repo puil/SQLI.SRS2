@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Icons/Administration</title>
-    <defs>
-        <path d="M20,26 L18.5,26 L18.5,18.5 L20,18.5 L20,26 Z M19.25,8 L31.6,32.7 L6.9,32.7 L19.25,8 Z M19.25,11 L9,31.5 L29.5,31.5 L19.25,11 Z M20,27.5 L20,29 L18.5,29 L18.5,27.5 L20,27.5 Z" id="path-1"></path>
-    </defs>
     <g id="Icons/Administration" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="" fill-rule="nonzero" fill="#000000">
-            <use xlink:href="#path-1"></use>
-            <use xlink:href="#path-1"></use>
-        </g>
+        <path d="M20,26 L18.5,26 L18.5,18.5 L20,18.5 L20,26 Z M19.25,8 L31.6,32.7 L6.9,32.7 L19.25,8 Z M19.25,11 L9,31.5 L29.5,31.5 L19.25,11 Z M20,27.5 L20,29 L18.5,29 L18.5,27.5 L20,27.5 Z" id="" fill="#000000" fill-rule="nonzero"></path>
     </g>
 </svg>

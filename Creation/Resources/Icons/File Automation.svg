@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icons/File Automation</title>
+    <defs>
+        <path d="M20,32 L20,30.5 L11,30.5 L11,9.5 L21.5,9.5 L21.5,15.5 L27.5,15.5 L27.5,26 L29,26 L29,14.4335938 L22.5664062,8 L9.5,8 L9.5,32 L20,32 Z M26.4335937,14 L23,14 L23,10.5664062 L26.4335937,14 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/File-Automation" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="" fill-rule="nonzero" fill="#000000">
+            <use xlink:href="#path-1"></use>
+            <use xlink:href="#path-1"></use>
+        </g>
+        <path d="M22,35 L31,29.75 L22,24.5 L22,35 Z M23.5,32.3867188 L23.5,27.1132812 L28.0234375,29.75 L23.5,32.3867188 Z" id="" fill="#000000" fill-rule="nonzero"></path>
+    </g>
+</svg>
