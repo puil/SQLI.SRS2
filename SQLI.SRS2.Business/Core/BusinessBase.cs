@@ -43,13 +43,13 @@ namespace SQLI.SRS2.Business.Core
             }
         }
 
-        protected void SetProperty<T>(ref T oldValue, T newValue)
+        protected void SetProperty<T>(ref T oldValue, T newValue, [CallerMemberName] string propertyName = "")
         {
             if ((oldValue == null && newValue == null) || (oldValue != null && oldValue.Equals(newValue)))
                 return;
 
             oldValue = newValue;
-            NotifyPropertyChanged();
+            NotifyPropertyChanged(propertyName);
         }
     }
 }

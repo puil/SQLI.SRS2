@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icons/ECHA reporting</title>
+    <defs>
+        <polygon id="path-1" points="20.9960938 29 20.9960938 21.734375 27.2890625 25.3671875 28.296875 23.6328125 22.0039062 20 28.296875 16.3671875 27.2890625 14.6328125 20.9960938 18.265625 20.9960938 11 19.0039062 11 19.0039062 18.265625 12.7109375 14.6328125 11.703125 16.3671875 17.9960938 20 11.703125 23.6328125 12.7109375 25.3671875 19.0039062 21.734375 19.0039062 29"></polygon>
+    </defs>
+    <g id="Icons/ECHA-reporting" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="" fill-rule="nonzero" fill="#000000">
+            <use xlink:href="#path-1"></use>
+            <use xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>

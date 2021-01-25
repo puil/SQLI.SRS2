@@ -5,6 +5,7 @@
     <AssemblyName>SQLI.SRS2.Modules.Showcase</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Infragistics.WPF.DataGrids" Version="20.2.16" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
   </ItemGroup>
   <ItemGroup>

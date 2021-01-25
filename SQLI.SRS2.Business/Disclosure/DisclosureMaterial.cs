@@ -16,33 +16,6 @@ namespace SQLI.SRS2.Business.Disclosure
         private bool evaluated;
         private string country;
 
-        //public int Id
-        //{
-        //    get => id;
-        //    set
-        //    {
-        //        if (this.id == value)
-        //            return;
-
-        //        id = value;
-        //        NotifyPropertyChanged();
-        //    }
-        //}
-
-        //public string Name
-        //{
-        //    get => name;
-        //    set
-        //    {
-        //        if (this.name == value)
-        //            return;
-
-        //        name = value;
-        //        NotifyPropertyChanged();
-        //    }
-        //}
-
-
         public int Id { get => id; set => SetProperty(ref id, value); }
         public string Name { get => name; set => SetProperty(ref name, value); }
         public HistoryStatusEnum HistoryStatus { get => historyStatus; set => SetProperty(ref historyStatus, value); }

@@ -4,9 +4,17 @@
     <ResourceDictionary.MergedDictionaries>
         <igThemes:PrimitivesMetro />
         <igThemes:EditorsMetro />
+        <ResourceDictionary Source="Metro/Metro.Theme.Colors.xaml"/>
         <ResourceDictionary Source="Metro/Metro.MSControls.Core.Implicit.xaml"/>
         <ResourceDictionary Source="Metro/Metro.xamDialogWindow.xaml"/>
         <ResourceDictionary Source="Metro/Metro.xamDataPresenter.xaml"/>
         <ResourceDictionary Source="Metro/Metro.xamEditors.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+
+    <!--<Style x:Key="JTIScrollBarStyle" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource {x:Type ScrollBar}}">
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="MinWidth" Value="10"/>
+    </Style>
+
+    <Style BasedOn="{StaticResource JTIScrollBarStyle}" TargetType="{x:Type ScrollBar}" />-->
 </ResourceDictionary>

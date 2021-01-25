@@ -7,6 +7,7 @@ using SQLI.SRS2.Modules.Menu;
 using SQLI.SRS2.Modules.Showcase;
 using SQLI.SRS2.Services;
 using SQLI.SRS2.Services.Interfaces;
+using SQLI.SRS2.Views;
 using System.Windows;
 using Unity.Lifetime;
 
@@ -28,6 +29,7 @@ namespace SQLI.SRS2
             containerRegistry.RegisterSingleton<IDisclosureService, DisclosureService>();
 
             //containerRegistry.RegisterSingleton<IRegionNavigationContentLoader, ScopedRegionNavigationContentLoader>();
+            containerRegistry.RegisterForNavigation<InspectorView>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
