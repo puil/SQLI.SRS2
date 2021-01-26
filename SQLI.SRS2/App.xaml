@@ -6,6 +6,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes/Metro.Generic.xaml"/>
+
+                <ResourceDictionary Source="pack://application:,,,/SQLI.SRS2.Modules.Menu;component/Styles/ResponsiveItemsControlStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

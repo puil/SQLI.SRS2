@@ -5,16 +5,17 @@
     <AssemblyName>SQLI.SRS2.Modules.Menu</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Views\FullMenu - Copy.xaml.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Assets\Administration.svg" />
     <None Remove="Assets\Automation.svg" />
+    <None Remove="Assets\Block OFF.svg" />
+    <None Remove="Assets\Block ON.svg" />
     <None Remove="Assets\chevron_down.svg" />
     <None Remove="Assets\chevron_right.svg" />
+    <None Remove="Assets\Close.svg" />
     <None Remove="Assets\Compliance.svg" />
     <None Remove="Assets\Configuration.svg" />
     <None Remove="Assets\DataArea.svg" />
+    <None Remove="Assets\Delete.svg" />
     <None Remove="Assets\Disclosure.svg" />
     <None Remove="Assets\ECHAreporting.svg" />
     <None Remove="Assets\EUreporting.svg" />
@@ -22,23 +23,26 @@
     <None Remove="Assets\File Automation.svg" />
     <None Remove="Assets\File ON.svg" />
     <None Remove="Assets\File.svg" />
+    <None Remove="Assets\Import.svg" />
     <None Remove="Assets\Ingredients.svg" />
     <None Remove="Assets\Menu.svg" />
+    <None Remove="Assets\New file.svg" />
+    <None Remove="Assets\New Window.svg" />
     <None Remove="Assets\palet.png" />
     <None Remove="Assets\PowerUsers.svg" />
+    <None Remove="Assets\Refresh Content.svg" />
     <None Remove="Assets\SAP.svg" />
     <None Remove="Assets\SAPnon.svg" />
+    <None Remove="Assets\Save.svg" />
     <None Remove="Assets\Translation.svg" />
     <None Remove="Assets\User.svg" />
     <None Remove="ViewModels\Menu.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Page Remove="Views\FullMenu - Copy.xaml" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Infragistics.WPF.DataGrids" Version="20.2.16" />
     <PackageReference Include="Infragistics.WPF.DataTree" Version="20.2.16" />
     <PackageReference Include="Infragistics.WPF.Editors" Version="20.2.16" />
+    <PackageReference Include="Infragistics.WPF.Menus" Version="20.2.16" />
     <PackageReference Include="Infragistics.WPF.Themes.Metro" Version="20.2.16" />
     <PackageReference Include="Infragistics.WPF.Themes.MetroDark" Version="20.2.16" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
@@ -54,11 +58,15 @@
   <ItemGroup>
     <Resource Include="Assets\Administration.svg" />
     <Resource Include="Assets\Automation.svg" />
+    <Resource Include="Assets\Block OFF.svg" />
+    <Resource Include="Assets\Block ON.svg" />
     <Resource Include="Assets\chevron_down.svg" />
     <Resource Include="Assets\chevron_right.svg" />
+    <Resource Include="Assets\Close.svg" />
     <Resource Include="Assets\Compliance.svg" />
     <Resource Include="Assets\Configuration.svg" />
     <Resource Include="Assets\DataArea.svg" />
+    <Resource Include="Assets\Delete.svg" />
     <Resource Include="Assets\Disclosure.svg" />
     <Resource Include="Assets\ECHAreporting.svg" />
     <Resource Include="Assets\EUreporting.svg" />
@@ -66,14 +74,18 @@
     <Resource Include="Assets\File Automation.svg" />
     <Resource Include="Assets\File ON.svg" />
     <Resource Include="Assets\File.svg" />
+    <Resource Include="Assets\Import.svg" />
     <Resource Include="Assets\Ingredients.svg" />
     <Resource Include="Assets\Menu.svg" />
+    <Resource Include="Assets\New file.svg" />
+    <Resource Include="Assets\New Window.svg" />
     <Resource Include="Assets\palet.png" />
     <Resource Include="Assets\PowerUsers.svg" />
+    <Resource Include="Assets\Refresh Content.svg" />
     <Resource Include="Assets\SAPnon.svg" />
     <Resource Include="Assets\SAP.svg" />
+    <Resource Include="Assets\Save.svg" />
     <Resource Include="Assets\Translation.svg" />
     <Resource Include="Assets\User.svg" />
-    <Resource Include="Views\Menu.svg" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icons/Import</title>
+    <defs>
+        <path d="M23.5979903,13.8476562 L29.0000043,19.25 L23.5979903,24.6523438 L22.5433671,23.5976562 L26.1173677,20.0234375 L8.07159424,20.0234375 L8.07159424,18.5234375 L26.1525218,18.5234375 L22.5433671,14.9023438 L23.5979903,13.8476562 Z M32.0000043,14 L32.0000043,24.5 L30.5000958,24.5 L30.5000958,14 L32.0000043,14 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/Import" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Combined-Shape" fill-rule="nonzero" fill="#000000">
+            <use xlink:href="#path-1"></use>
+            <use xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>

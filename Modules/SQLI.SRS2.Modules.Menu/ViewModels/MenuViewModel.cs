@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace SQLI.SRS2.Modules.Menu.ViewModels
 {
-    public class FullMenuViewModel : BindableBase
+    public class MenuViewModel : BindableBase
     {
         private readonly IRegionManager regionManager;
 
@@ -94,7 +94,7 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
             }
         }
 
-        public FullMenuViewModel(IRegionManager regionManager)
+        public MenuViewModel(IRegionManager regionManager)
         {
             this.regionManager = regionManager;
 

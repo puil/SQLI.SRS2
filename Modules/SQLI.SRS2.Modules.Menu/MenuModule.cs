@@ -17,13 +17,15 @@ namespace SQLI.SRS2.Modules.Menu
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RequestNavigate(RegionNames.MenuRegion, "FullMenu");
+            _regionManager.RequestNavigate(RegionNames.MenuRegion, "MenuView");
+            _regionManager.RequestNavigate(RegionNames.InspectorRegion, "InspectorView");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<FullMenu>();
+            containerRegistry.RegisterForNavigation<MenuView>();
             containerRegistry.RegisterForNavigation<Settings>();
+            containerRegistry.RegisterForNavigation<InspectorView>();
         }
     }
 }

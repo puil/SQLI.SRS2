@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icons/New file</title>
+    <defs>
+        <path d="M21.5,29 L21.5,27.5 L12.5,27.5 L12.5,9.5 L20,9.5 L20,15.5 L26,15.5 L26,23 L27.5,23 L27.5,14.4335938 L21.0664062,8 L11,8 L11,29 L21.5,29 Z M24.9335938,14 L21.5,14 L21.5,10.5664062 L24.9335938,14 Z M27.5,32 L27.5,29 L30.5,29 L30.5,27.5 L27.5,27.5 L27.5,24.5 L26,24.5 L26,27.5 L23,27.5 L23,29 L26,29 L26,32 L27.5,32 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/New-file" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="" fill-rule="nonzero" fill="#000000">
+            <use xlink:href="#path-1"></use>
+            <use xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>

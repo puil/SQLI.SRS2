@@ -3,11 +3,11 @@
 namespace SQLI.SRS2.Modules.Menu.Views
 {
     /// <summary>
-    /// Interaction logic for FullMenu
+    /// Interaction logic for MenuView
     /// </summary>
-    public partial class FullMenu : UserControl
+    public partial class MenuView : UserControl
     {
-        public FullMenu()
+        public MenuView()
         {
             InitializeComponent();
         }

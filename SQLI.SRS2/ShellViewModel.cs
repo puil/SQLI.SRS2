@@ -63,7 +63,8 @@ namespace SQLI.SRS2
             IsEnvironmentConnected = true;
 
             this.regionManager = regionManager;
-            //regionManager.RequestNavigate(RegionNames.InspectorRegion, "InspectorView");
+            
+            //this.regionManager.RequestNavigate(RegionNames.InspectorRegion, "InspectorView");
         }
 
         void ExecuteMinimizeCommand()

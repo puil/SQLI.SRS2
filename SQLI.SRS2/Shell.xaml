@@ -269,7 +269,8 @@
                                 Command="{Binding ChangeEnvironmentConnectionCommand}" Content="Change environment"/>
                         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}"/>
                     </StackPanel>
-                    <ContentControl Grid.Column="1" prism:RegionManager.RegionName="{x:Static core:RegionNames.InspectorRegion}"/>
+                    <ContentControl Grid.Column="1" prism:RegionManager.RegionName="{x:Static core:RegionNames.InspectorRegion}"
+                                    Background="LightBlue"/>
                 </Grid>
             </Border>
 
