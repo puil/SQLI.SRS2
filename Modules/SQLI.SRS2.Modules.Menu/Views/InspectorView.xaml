@@ -106,23 +106,25 @@
         </Style>
 
         <DataTemplate x:Key="InspectorItemTemplate" DataType="{x:Type controls:InspectorItem}">
-            <Button Style="{StaticResource InspectorButtonStyle}"
-                    ToolTip="{Binding Description}"
-                    Width="48">
+            <Border ToolTip="{Binding Description}"
+                    Width="48"
+                    Height="48">
                 <svgc:SvgViewbox Source="{Binding IconUri}"
                                  Width="16"
                                  Height="16"
                                  coreHelpers:SvgHelper.SvgBrush="DarkGray"/>
-            </Button>
+            </Border>
         </DataTemplate>
     </UserControl.Resources>
 
-    <controls:ResponsiveItemsControl Orientation="Vertical"
-                                     Background="{StaticResource InspectorBackgroundBrush}"
-                                     ItemsSource="{Binding Items}"
-                                     ItemTemplate="{StaticResource InspectorItemTemplate}"
-                                     MoreButtonStyle="{StaticResource InspectorButtonStyle}"
-                                     MoreButtonContentTemplate="{StaticResource MoreButtonTemplate}"
-                                     ContextMenuItemTemplate="{StaticResource ContextMenuItemTemplate}"
-                                     Visibility="{Binding Items.Count, Converter={StaticResource NotCompareToBooleanConverter}, ConverterParameter={StaticResource zeroIntegerValue}}"/>
+    <controls:ResponsiveButtonsControl Orientation="Vertical"
+                                       
+                                       Background="{StaticResource InspectorBackgroundBrush}"
+                                       ItemsSource="{Binding Items}"
+                                       VisibleItemTemplate="{StaticResource InspectorItemTemplate}"
+                                       HiddenItemTemplate="{StaticResource ContextMenuItemTemplate}"
+                                       ItemCommand="{Binding ItemCommand}"
+                                       MoreButtonStyle="{DynamicResource InspectorButtonStyle}"
+                                       MoreButtonContentTemplate="{DynamicResource MoreButtonTemplate}"
+                                       MoreButtonToolTip="More"/>
 </UserControl>

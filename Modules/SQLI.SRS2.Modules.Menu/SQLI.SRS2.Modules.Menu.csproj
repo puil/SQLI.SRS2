@@ -17,6 +17,7 @@
     <None Remove="Assets\DataArea.svg" />
     <None Remove="Assets\Delete.svg" />
     <None Remove="Assets\Disclosure.svg" />
+    <None Remove="Assets\Documentation.svg" />
     <None Remove="Assets\ECHAreporting.svg" />
     <None Remove="Assets\EUreporting.svg" />
     <None Remove="Assets\File Automation ON.svg" />
@@ -68,6 +69,7 @@
     <Resource Include="Assets\DataArea.svg" />
     <Resource Include="Assets\Delete.svg" />
     <Resource Include="Assets\Disclosure.svg" />
+    <Resource Include="Assets\Documentation.svg" />
     <Resource Include="Assets\ECHAreporting.svg" />
     <Resource Include="Assets\EUreporting.svg" />
     <Resource Include="Assets\File Automation ON.svg" />
@@ -87,5 +89,11 @@
     <Resource Include="Assets\Save.svg" />
     <Resource Include="Assets\Translation.svg" />
     <Resource Include="Assets\User.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\ResponsiveButtonsControlStyles.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

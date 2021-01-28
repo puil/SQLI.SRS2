@@ -8,5 +8,7 @@
         <ResourceDictionary Source="MetroDark/MetroDark.xamDialogWindow.xaml"/>
         <ResourceDictionary Source="MetroDark/MetroDark.xamDataPresenter.xaml"/>
         <ResourceDictionary Source="MetroDark/MetroDark.xamEditors.xaml"/>
+
+        <ResourceDictionary Source="pack://application:,,,/SQLI.SRS2.Modules.Menu;component/Styles/ResponsiveButtonsControlStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

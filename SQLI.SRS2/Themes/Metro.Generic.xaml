@@ -9,12 +9,7 @@
         <ResourceDictionary Source="Metro/Metro.xamDialogWindow.xaml"/>
         <ResourceDictionary Source="Metro/Metro.xamDataPresenter.xaml"/>
         <ResourceDictionary Source="Metro/Metro.xamEditors.xaml"/>
+
+        <ResourceDictionary Source="pack://application:,,,/SQLI.SRS2.Modules.Menu;component/Styles/ResponsiveButtonsControlStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-
-    <!--<Style x:Key="JTIScrollBarStyle" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource {x:Type ScrollBar}}">
-        <Setter Property="Width" Value="10"/>
-        <Setter Property="MinWidth" Value="10"/>
-    </Style>
-
-    <Style BasedOn="{StaticResource JTIScrollBarStyle}" TargetType="{x:Type ScrollBar}" />-->
 </ResourceDictionary>

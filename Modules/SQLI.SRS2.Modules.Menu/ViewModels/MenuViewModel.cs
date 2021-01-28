@@ -3,8 +3,6 @@ using Prism.Mvvm;
 using Prism.Regions;
 using SQLI.SRS2.Business.Menu;
 using SQLI.SRS2.Core;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -14,85 +12,57 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
     {
         private readonly IRegionManager regionManager;
 
-        private MenuItem selectedMenuItem;
-
+        private bool isMenuExpanded = true;
         public bool IsMenuExpanded { get => isMenuExpanded; set => SetProperty(ref isMenuExpanded, value); }
+
+        private MenuItem activeDataItem;
+        public MenuItem ActiveDataItem
+        {
+            get => activeDataItem;
+            set
+            {
+                activeDataItem = value;
+                OnActiveDataItemChanged();
+            }
+        }
+
+        public ObservableCollection<MenuItem> MenuItems { get; init; } = new ObservableCollection<MenuItem>();
 
         #region Commands
 
         private DelegateCommand openSettingsCommand;
         public DelegateCommand OpenSettingsCommand => openSettingsCommand ??= new DelegateCommand(ExecuteOpenSettingsCommand);
 
-        void ExecuteOpenSettingsCommand()
-        {
-            NavigateToView("Settings");
-        }
-
-
-
-        private DelegateCommand<object> previewMouseLeftButtonUpCommand;
-        public DelegateCommand<object> PreviewMouseLeftButtonUpCommand =>
-            previewMouseLeftButtonUpCommand ??= new DelegateCommand<object>(ExecutePreviewMouseLeftButtonUpCommand);
-
-        void ExecutePreviewMouseLeftButtonUpCommand(object parameter)
-        {
-
-        }
-
-        private DelegateCommand<object> fireCommand;
-        public DelegateCommand<object> FireCommand =>
-            fireCommand ?? (fireCommand = new DelegateCommand<object>(ExecuteFireCommand));
-
-        void ExecuteFireCommand(object parameter)
-        {
-
-        }
+        void ExecuteOpenSettingsCommand() => NavigateToView("Settings");
 
 
         private DelegateCommand expandCollapseMenuCommand;
         public DelegateCommand ExpandCollapseMenuCommand => expandCollapseMenuCommand ??= new DelegateCommand(ExecuteExpandCollapseMenuCommand);
 
-        void ExecuteExpandCollapseMenuCommand()
+        void ExecuteExpandCollapseMenuCommand() => IsMenuExpanded = !IsMenuExpanded;
+
+
+        private DelegateCommand<object> itemCommand;
+        public DelegateCommand<object> ItemCommand => itemCommand ??= new DelegateCommand<object>(ExecuteItemCommand);
+        
+        void ExecuteItemCommand(object parameter)
         {
-            IsMenuExpanded = !IsMenuExpanded;
+            if (parameter is MenuItem menuItem)
+                ActiveDataItem = menuItem;
         }
+
+
+        // TODO Pending to implementing the previous command but changing name
+        //private DelegateCommand<object> collapsedMenuItemCommand;
+        //public DelegateCommand<object> CollapsedMenuItemCommand => collapsedMenuItemCommand ??= new DelegateCommand<object>(ExecuteCollapsedMenuItemCommand);
+
+        //void ExecuteCollapsedMenuItemCommand(object parameter)
+        //{
+        //    if (parameter is MenuItem menuItem)
+        //        ActiveDataItem = menuItem;
+        //}
 
         #endregion
-
-        public ObservableCollection<MenuItem> MenuItems { get; init; } = new ObservableCollection<MenuItem>();
-        public MenuItem SelectedMenuItem
-        {
-            get => selectedMenuItem;
-            set
-            {
-                //OnSelectedMenuItemChanged(selectedMenuItem, value);
-                selectedMenuItem = value;
-            }
-        }
-
-        private MenuItem selectedTreeMenuItem;
-
-        public MenuItem SelectedTreeMenuItem
-        {
-            get => selectedTreeMenuItem;
-            set
-            {
-                selectedTreeMenuItem = value;
-                OnSelectedTreeMenuItemChanged();
-            }
-        }
-
-        private IEnumerable<MenuItem> selectedDataTreeItems;
-
-        public IEnumerable<MenuItem> SelectedDataTreeItems
-        {
-            get => selectedDataTreeItems;
-            set
-            {
-                selectedDataTreeItems = value;
-                OnSelectedDataTreeItemsChanged();
-            }
-        }
 
         public MenuViewModel(IRegionManager regionManager)
         {
@@ -165,112 +135,12 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
             CreateMenuItem("ECHAReporting", "ECHA Reporting", "../Assets/ECHAreporting.svg", null);
             CreateMenuItem("Compliance", "Compliance", "../Assets/Compliance.svg", null);
             CreateMenuItem("Automation", "Automation", "../Assets/Automation.svg", null);
-            CreateMenuItem("DataArea", "Data Area", "../Assets/DataArea.svg", null);
+            CreateMenuItem("DataArea", "Data Area", "../Assets/DataArea.svg", "Settings");
         }
 
         #endregion
 
-        private void OnSelectedMenuItemChanged(MenuItem oldMenuItem, MenuItem newMenuItem)
-        {
-            if (oldMenuItem == newMenuItem)
-                return;
-
-            if (oldMenuItem != null)
-            {
-                oldMenuItem.IsSelected = false;
-                oldMenuItem.IsExpanded = false;
-            }
-
-            newMenuItem.IsSelected = true;
-
-            selectedMenuItem = newMenuItem;
-
-            if (SelectedMenuItem == null || string.IsNullOrWhiteSpace(SelectedMenuItem.ViewName))
-                return;
-
-            if (SelectedMenuItem.HasChildren)
-                SelectedMenuItem.IsExpanded = !SelectedMenuItem.IsExpanded;
-            else
-                NavigateToView(SelectedMenuItem.ViewName);
-        }
-
-        internal bool OnMenuItemSelected(object dataContext)
-        {
-            if (dataContext != null)
-            {
-                if (dataContext is MenuItem menuItem)
-                {
-                    if (menuItem.HasChildren)
-                    {
-                        menuItem.IsExpanded = !menuItem.IsExpanded;
-                        SetMenuItemAsSelected(menuItem, menuItem.IsExpanded);
-                        return true;
-                    }
-                    else
-                    {
-                        SetMenuItemAsSelected(menuItem, true);
-
-                        if (!string.IsNullOrWhiteSpace(menuItem.ViewName))
-                        {
-                            NavigateToView(menuItem.ViewName);
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        private void SetMenuItemAsSelected(MenuItem menuItem, bool selectedValue)
-        {
-            if (selectedValue)
-            {
-                MenuItems.Where(x => x.Name != menuItem.Name).ToList().ForEach(x =>
-                {
-                    x.IsSelected = false;
-                    x.IsExpanded = false;
-                });
-
-
-                menuItem.IsSelected = true;
-            }
-            else
-            {
-                menuItem.IsSelected = false;
-            }
-        }
-
-        private void OnSelectedTreeMenuItemChanged()
-        {
-            if (SelectedTreeMenuItem != null && !string.IsNullOrWhiteSpace(SelectedTreeMenuItem.ViewName))
-                NavigateToView(SelectedTreeMenuItem.ViewName);
-        }
-
-        private void NavigateToView(string viewName)
-        {
-            //regionManager.RequestNavigate(RegionNames.TabRegion, viewName);
-            regionManager.RequestNavigate(RegionNames.ContentRegion, viewName);
-        }
-
-        private void OnSelectedDataTreeItemsChanged()
-        {
-
-        }
-
-
-        private MenuItem activeDataItem;
-        private bool isMenuExpanded = true;
-
-        public MenuItem ActiveDataItem
-        {
-            get => activeDataItem;
-            set
-            {
-                activeDataItem = value;
-                OnActiveDataItemChanged();
-            }
-        }
+        private void NavigateToView(string viewName) => regionManager.RequestNavigate(RegionNames.ContentRegion, viewName);
 
         private void OnActiveDataItemChanged()
         {
@@ -279,12 +149,28 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
                 if (ActiveDataItem.HasChildren)
                 {
                     ActiveDataItem.IsExpanded = true;
+                    ActiveDataItem.IsSelected = true;
                     IsMenuExpanded = true;
                 }
+                else
+                {
+                    ActiveDataItem.IsSelected = true;
+                    //IsMenuExpanded = true;        // Uncomment if we want to expand menu tree alwaysy
+                }
+
+                CollapseAllFirstNodesExceptActive();
             }
 
             if (ActiveDataItem != null && !string.IsNullOrWhiteSpace(ActiveDataItem.ViewName))
                 NavigateToView(ActiveDataItem.ViewName);
         }
+
+        private void CollapseAllFirstNodesExceptActive()
+        {
+            var firstLevelItem = GetMenuItemFirstLevel(ActiveDataItem);
+            MenuItems.Where(x => x.Name != firstLevelItem.Name && x.IsExpanded).ToList().ForEach(x => x.IsExpanded = false);
+        }
+
+        private MenuItem GetMenuItemFirstLevel(MenuItem menuItem) => menuItem.HasParent ? GetMenuItemFirstLevel(menuItem.Parent) : menuItem;
     }
 }

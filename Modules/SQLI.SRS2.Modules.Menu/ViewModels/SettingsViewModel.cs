@@ -1,5 +1,8 @@
-﻿using Prism.Regions;
+﻿using Prism.Events;
+using Prism.Regions;
 using SQLI.SRS2.Core.Mvvm;
+using SQLI.SRS2.Modules.Menu.Controls;
+using SQLI.SRS2.Modules.Menu.Events;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -9,6 +12,8 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
     public class SettingsViewModel : RegionViewModelBase
     {
         private string selectedTheme;
+        private readonly IEventAggregator eventAggregator;
+
         public string SelectedTheme
         {
             get { return selectedTheme; }
@@ -25,11 +30,37 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
                 "MetroDark"
             };
 
-        public SettingsViewModel(IRegionManager regionManager) : base(regionManager)
+        public SettingsViewModel(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager)
         {
+            this.eventAggregator = eventAggregator;
+
             Title = "Settings";
             SetCurrentSelectedTheme();
+
+            eventAggregator.GetEvent<InspectorMenuItemsEvent>().Publish(GetInspectorItems());
         }
+
+        private IEnumerable<InspectorItem> GetInspectorItems()
+        {
+            return new List<InspectorItem>
+            {
+                CreateInspectorItem("../Assets/Close.svg", "Close"),
+                CreateInspectorItem("../Assets/New Window.svg", "Open in new window"),
+                CreateInspectorItem("../Assets/New file.svg", "New file"),
+                CreateInspectorItem("../Assets/Block OFF.svg", "Block edition"),
+                CreateInspectorItem("../Assets/Import.svg", "Import"),
+                CreateInspectorItem("../Assets/New Window.svg", "Open in new window"),
+                CreateInspectorItem("../Assets/New file.svg", "New file"),
+                CreateInspectorItem("../Assets/Block OFF.svg", "Block edition"),
+                CreateInspectorItem("../Assets/Import.svg", "Import"),
+            };
+        }
+
+        private InspectorItem CreateInspectorItem(string iconUri, string description) => new InspectorItem
+        {
+            IconUri = iconUri,
+            Description = description
+        };
 
         private void SetCurrentSelectedTheme()
         {
@@ -51,5 +82,7 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
                 }
             });
         }
+
+
     }
 }

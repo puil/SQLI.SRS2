@@ -5,6 +5,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:igEdit="http://infragistics.com/Editors"
              xmlns:coreConverters="clr-namespace:SQLI.SRS2.Core.Converters;assembly=SQLI.SRS2.Core"
+             xmlns:coreHelpers="clr-namespace:SQLI.SRS2.Core.Helpers;assembly=SQLI.SRS2.Core"
              x:Name="SettingsView">
     <UserControl.Resources>
         <coreConverters:UniformGridColumnsConverter x:Key="UniformGridColumnsConverter"/>
@@ -35,7 +36,8 @@
                                        VerticalAlignment="Center"
                                        Height="27" Width="200" Margin="10,0,0,0"
                                        ItemsSource="{Binding Themes}"
-                                       SelectedItem="{Binding SelectedTheme}">
+                                       SelectedItem="{Binding SelectedTheme}"
+                                       coreHelpers:FocusHelper.SetKeyboardFocusOnLoad="True">
                 </igEdit:XamComboEditor>
             </DockPanel>
         </UniformGrid>

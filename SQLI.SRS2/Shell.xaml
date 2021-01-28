@@ -226,8 +226,7 @@
                                              coreHelpers:SvgHelper.SvgBrush="{StaticResource WindowTitleForegroundBrush}"
                                              Visibility="{Binding IsMaximized, Converter={StaticResource NotBooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
-                            <!-- TODO change it for Restore.svg when icon is available -->
-                            <svgc:SvgViewbox Source="../Assets/Minimize.svg"
+                            <svgc:SvgViewbox Source="../Assets/Restore.svg"
                                              Width="12"
                                              Height="12"
                                              coreHelpers:SvgHelper.SvgBrush="{StaticResource WindowTitleForegroundBrush}"

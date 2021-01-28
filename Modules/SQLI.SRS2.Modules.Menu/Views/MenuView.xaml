@@ -30,11 +30,102 @@
         <SolidColorBrush x:Key="MousePressedOnItemBrush" Color="#FF0AB285" Opacity="0.15"/>
         <!--<SolidColorBrush x:Key="MouseOverItemBrush" Color="{StaticResource Color_006}"/>-->
 
-        <!-- TreeView Brushes -->
-        <!--<LinearGradientBrush x:Key="TreeViewShadowSeparator" EndPoint="1,0.5" StartPoint="0,0.5">
-            <GradientStop Color="{DynamicResource Color_004}" Offset="0"/>
-            <GradientStop Color="{DynamicResource Color_006}" Offset="1"/>
-        </LinearGradientBrush>-->
+        <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="MinWidth" Value="30"/>
+            <Setter Property="MinHeight" Value="28"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <!--<Setter Property="Cursor" Value="Hand"/>-->
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" >
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00" Storyboard.TargetName="pressedBorder" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" >
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Rectangle Fill="{StaticResource TransparentBrush}"/>
+                            <Border x:Name="hoverBorder"
+                                    Background="{StaticResource MouseOverItemBrush}" 
+                                    Visibility="Collapsed" />
+                            <Border x:Name="pressedBorder"
+                                    Background="{StaticResource MousePressedOnItemBrush}" 
+                                    Opacity="0.5"
+                                    Visibility="Collapsed" />
+                            <ContentPresenter x:Name="contentPresenter" Opacity="{TemplateBinding Opacity}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--#region Main grid style-->
+        
+        <Storyboard x:Key="ExpandMenuStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Width)" To="250" Duration="0:0:0.25" />
+        </Storyboard>
+
+        <Storyboard x:Key="CollapseMenuStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Width)" To="48" Duration="0:0:0.25" />
+        </Storyboard>
+
+        <Style x:Key="ExpandableGridStyle" TargetType="{x:Type Grid}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMenuExpanded}" Value="False">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource CollapseMenuStoryboard}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding IsMenuExpanded}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource ExpandMenuStoryboard}" />
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource CollapseMenuStoryboard}" />
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!--#endregion-->
+        
+        <!--#region MenuDataTree Styles-->
 
         <!-- Same as default style from infragistics but changind width and heigh -->
         <Style x:Key="MenuScrollBarStyle" TargetType="{x:Type ScrollBar}">
@@ -184,7 +275,7 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Same as XamDataTree default style but using CustomNodesPanel instead -->
+        <!-- Same as XamDataTree default style but using StretchingNodesPanel instead -->
         <Style x:Key="MenuDataTreeStyle" TargetType="controls:MenuDataTree">
             <Setter Property="DefaultEditorStyle" Value="{StaticResource XamDataTreeDefaultEditorStyle}" />
             <Setter Property="Background" Value="{StaticResource TreeBackgroundBrush}"/>
@@ -206,86 +297,13 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <controls:CustomNodesPanel x:Name="NodesPanel" Background="{StaticResource TransparentBrush}"/>
+                                <controls:StretchingNodesPanel x:Name="NodesPanel" Background="{StaticResource TransparentBrush}"/>
                                 <ScrollBar x:Name="VerticalScrollBar" Grid.Row="0" Grid.Column="1" Style="{StaticResource MenuScrollBarStyle}"/>
-                                <Grid Grid.Row="2" Visibility="{TemplateBinding HorizontalScrollBarVisibility}">
+                                <!--<Grid Grid.Row="2" Visibility="{TemplateBinding HorizontalScrollBarVisibility}">
                                     <ScrollBar x:Name="HorizontalScrollBar" Style="{StaticResource MenuScrollBarStyle}"/>
-                                </Grid>
+                                </Grid>-->
                             </Grid>
                         </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="ExpansionIndicatorStyle1" TargetType="igPrimDT:ExpansionIndicator">
-            <Setter Property="Background" Value="#FF666666"/>
-            <Setter Property="BorderBrush" Value="#FF666666"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="igPrimDT:ExpansionIndicator">
-                        <Grid>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ExpansionIndicatorGlyph" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
-                                                <SplineColorKeyFrame KeyTime="00:00:00" Value="#FF6DBDD1"/>
-                                            </ColorAnimationUsingKeyFrames>
-                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ExpansionIndicatorGlyph" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)">
-                                                <SplineColorKeyFrame KeyTime="00:00:00" Value="#FF6DBDD1"/>
-                                            </ColorAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Selected" />
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ExpansionIndicator" Storyboard.TargetProperty="Opacity">
-                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.35"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="ExpansionStates">
-
-                                    <VisualState x:Name="Expanded">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ExpansionIndicatorGlyph" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
-                                                <SplineDoubleKeyFrame KeyTime="0" Value="90"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ExpansionIndicatorGlyph" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
-                                                <SplineColorKeyFrame KeyTime="00:00:00" Value="#FF666666"/>
-                                            </ColorAnimationUsingKeyFrames>
-                                            <ColorAnimationUsingKeyFrames BeginTime="00:00:00"  Storyboard.TargetName="ExpansionIndicatorGlyph" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)">
-                                                <SplineColorKeyFrame KeyTime="00:00:00" Value="#FF666666"/>
-                                            </ColorAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Collapsed">
-
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid x:Name="ExpansionIndicator" Background="#00000000" Grid.ColumnSpan="2" Grid.RowSpan="2" >
-                                <Path Data="M5,3 L5,9 L9,6 z" Width="12" Height="12" x:Name="ExpansionIndicatorGlyph" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" Margin="5,5,5,5" RenderTransformOrigin="0.5,0.5">
-                                    <Path.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform />
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </Path.RenderTransform>
-                                </Path>
-                            </Grid>
-                            <ContentPresenter Grid.Column="2" Margin="{TemplateBinding Padding}"/>
-                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -445,7 +463,7 @@
                                 <igPrimDT:ExpansionIndicator x:Name="ExpansionIndicator" IsTabStop="False" Grid.Column="1" 
                                                              Visibility="Collapsed" 
                                                              IsExpanded="{Binding Node.IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" 
-                                                             Style="{StaticResource ExpansionIndicatorStyle1}" />
+                                                              />
                                 <CheckBox x:Name="Checkbox" 
                                           Grid.Column="2" 
                                           IsThreeState="{Binding Node.NodeLayout.CheckBoxSettings.IsCheckBoxThreeStateResolved}"
@@ -513,7 +531,6 @@
                                 <Border x:Name="FirstLevelIsExpandedBorder" 
                                         Grid.Column="0"
                                         Width="6"
-                                        Margin="0,0,0,0"
                                         Background="{StaticResource SelectedItemBrush}"/>
 
                                 <Border x:Name="hoverBorder" 
@@ -552,184 +569,91 @@
 
         <!--#endregion-->
 
-        <Storyboard x:Key="ExpandMenuStoryboard">
-            <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Width)" To="250" Duration="0:0:0.25" />
-        </Storyboard>
+        <!--#region ResponsiveButtonsControl Styles and DataTemplates-->
 
-        <Storyboard x:Key="CollapseMenuStoryboard">
-            <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Width)" To="50" Duration="0:0:0.25" />
-        </Storyboard>
+        <DataTemplate x:Key="CollapsedMenuItemContentTemplate">
+            <Grid Width="48" Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        <Style x:Key="ExpandableGridStyle" TargetType="{x:Type Grid}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsMenuExpanded}" Value="False">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource CollapseMenuStoryboard}" />
-                    </DataTrigger.EnterActions>
-                </DataTrigger>
+                <Border Grid.Column="0"
+                        Width="6"
+                        Background="{StaticResource SelectedItemBrush}">
+                    <Border.Visibility>
+                        <MultiBinding Converter="{StaticResource BooleanOrToHiddenVisibilityConverter}">
+                            <Binding Path="IsSelected"/>
+                            <Binding Path="IsExpanded"/>
+                        </MultiBinding>
+                    </Border.Visibility>
+                </Border>
 
-                <DataTrigger Binding="{Binding IsMenuExpanded}" Value="True">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource ExpandMenuStoryboard}" />
-                    </DataTrigger.EnterActions>
-                    <DataTrigger.ExitActions>
-                        <BeginStoryboard Storyboard="{StaticResource CollapseMenuStoryboard}" />
-                    </DataTrigger.ExitActions>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
+                <svgc:SvgViewbox Grid.Column="1"
+                                    Margin="0,0,8,0"
+                                    Source="{Binding IconUri}"
+                                    HorizontalAlignment="Center"
+                                    Width="22"
+                                    Height="22"/>
 
-        <Style x:Key="ExpandMenuButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
-            <Setter Property="Padding" Value="3"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="MinWidth" Value="30"/>
-            <Setter Property="MinHeight" Value="28"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <!--<Setter Property="Cursor" Value="Hand"/>-->
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid Background="Transparent">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" >
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <Visibility>Visible</Visibility>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00" Storyboard.TargetName="pressedBorder" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" >
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <Visibility>Visible</Visibility>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter" />
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="FocusStates">
-                                    <VisualState x:Name="Focused"/>
-                                    <VisualState x:Name="Unfocused"/>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Rectangle Fill="{StaticResource TransparentBrush}"/>
-                            <Border x:Name="hoverBorder"
-                                    Background="{StaticResource MouseOverItemBrush}" 
-                                    Visibility="Collapsed" />
-                            <Border x:Name="pressedBorder"
-                                    Background="{StaticResource MousePressedOnItemBrush}" 
-                                    Opacity="0.5"
-                                    Visibility="Collapsed" />
-                            <ContentPresenter x:Name="contentPresenter" Opacity="0.7" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Padding" Value="3"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Height" Value="46"/>
-            <Setter Property="MinWidth" Value="30"/>
-            <Setter Property="MinHeight" Value="28"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <!--<Setter Property="Cursor" Value="Hand"/>-->
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Opacity" Value="1"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid Background="Transparent">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" >
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <Visibility>Visible</Visibility>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00" Storyboard.TargetName="pressedBorder" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" >
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <Visibility>Visible</Visibility>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter" />
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="FocusStates">
-                                    <VisualState x:Name="Focused"/>
-                                    <VisualState x:Name="Unfocused"/>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Rectangle Fill="{StaticResource TransparentBrush}"/>
-                            <Border x:Name="hoverBorder"
-                                    Background="{StaticResource MouseOverItemBrush}" 
-                                    Visibility="Collapsed" />
-                            <Border x:Name="pressedBorder"
-                                    Background="{StaticResource MousePressedOnItemBrush}" 
-                                    Opacity="0.5"
-                                    Visibility="Collapsed" />
-                            <ContentPresenter x:Name="contentPresenter" Opacity="{TemplateBinding Opacity}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <DataTemplate x:Key="CollapsedMenuItemTemplate">
-            <Button Style="{StaticResource ExpandMenuButtonStyle}"
-                    ToolTip="{Binding Description}"
-                    Width="48"
-                    Height="46">
-                <svgc:SvgViewbox Source="{Binding IconUri}"
-                                 Width="16"
-                                 Height="16"/>
-            </Button>
-        </DataTemplate>
-
-        <DataTemplate x:Key="MoreButtonTemplate">
-            <svgc:SvgViewbox Source="../Assets/chevron_down.svg"
-                             Width="16"
-                             Height="16"/>
+                <Border Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Background="Transparent"
+                        ToolTip="{Binding Description}"/>
+            </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="ContextMenuItemTemplate">
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <svgc:SvgViewbox Source="{Binding IconUri}"
-                                 Width="10"
-                                 Height="10"
-                                 VerticalAlignment="Center"/>
-                <TextBlock Margin="15,0,0,0" 
-                           VerticalAlignment="Center"
-                           Text="{Binding Description}"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" 
+                        Width="6"
+                        Background="{StaticResource SelectedItemBrush}">
+                    <Border.Visibility>
+                        <MultiBinding Converter="{StaticResource BooleanOrToHiddenVisibilityConverter}">
+                            <Binding Path="IsSelected"/>
+                            <Binding Path="IsExpanded"/>
+                        </MultiBinding>
+                    </Border.Visibility>
+                </Border>
+
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            Margin="3,10,10,10">
+
+                    <svgc:SvgViewbox Source="{Binding IconUri}"
+                                     Width="16"
+                                     Height="16"
+                                     VerticalAlignment="Center"/>
+
+                    <TextBlock Margin="15,0,0,0" 
+                               VerticalAlignment="Center"
+                               Text="{Binding Description}"/>
+                </StackPanel>
+            </Grid>
+
         </DataTemplate>
+
+        <Style x:Key="MoreButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MenuButtonStyle}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <DataTemplate x:Key="MoreButtonTemplate">
+            <Grid Width="46" Height="48">
+                <svgc:SvgViewbox Source="../Assets/chevron_down.svg"
+                                 HorizontalAlignment="Center"
+                                 Width="16"
+                                 Height="16"/>
+            </Grid>
+        </DataTemplate>
+
+        <!--#endregion-->
+
     </UserControl.Resources>
 
     <Grid Background="{StaticResource MenuBackgroundBrush}" 
@@ -744,14 +668,16 @@
 
         <!-- Expand/Collapse Menu tree button -->
         <Button Grid.Row="0" 
-                Height="46" 
                 HorizontalContentAlignment="Left" 
-                HorizontalAlignment="Stretch" 
-                Style="{StaticResource ExpandMenuButtonStyle}"
+                Style="{StaticResource MenuButtonStyle}"
                 Command="{Binding ExpandCollapseMenuCommand}">
-            <Image Source="{svgc:SvgImage ../Assets/Menu.svg}" 
-                   Width="24"
-                   Margin="12,0,0,0"/>
+            <Grid Margin="12,0,0,0">
+                <svgc:SvgViewbox Source="../Assets/Menu.svg"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"
+                                 Width="22"
+                                 Height="22"/>
+            </Grid>
         </Button>
 
         <!-- Menu Data Tree (Visible if menu is expanded) -->
@@ -762,13 +688,10 @@
                                Style="{StaticResource MenuDataTreeStyle}"
                                IsMenuDataTreeExpanded="{Binding IsMenuExpanded}"
                                HorizontalScrollBarVisibility="{Binding IsMenuExpanded, Converter={StaticResource BoolToVisibleConverter}}"
-                               VirtualizingPanel.IsVirtualizing="True"
-                               VirtualizingPanel.VirtualizationMode="Recycling"
                                NodeLineVisibility="Collapsed"
-                               ActiveDataItem="{Binding ActiveDataItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <!-- Visibility="{Binding IsMenuExpanded, Converter={StaticResource BoolToVisibleConverter}}" -->
+                               ActiveDataItem="{Binding ActiveDataItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Visibility="{Binding IsMenuExpanded, Converter={StaticResource BoolToVisibleConverter}}">
             <i:Interaction.Behaviors>
-                <behaviors:DataTreeOneFirstLevelItemExpandedBehavior/>
                 <behaviors:DataTreeMouseDoubleClickBehavior/>
             </i:Interaction.Behaviors>
 
@@ -780,8 +703,7 @@
                                NodeStyle="{StaticResource FirstLevelNodeStyle}">
                     <ig:NodeLayout.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="Transparent"
-                                    ToolTip="{Binding Data.Description}">
+                            <Border Background="Transparent">
                                 <Grid Height="48">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -789,16 +711,17 @@
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Icon -->
-                                    <svgc:SvgCanvas Grid.Column="0" 
-                                                Margin="10,0,10,0"
-                                                Source="{Binding Data.IconUri}"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"
-                                                Width="32"/>
+                                    <svgc:SvgViewbox Grid.Column="0"
+                                                     Margin="6,0,0,0"
+                                                     Source="{Binding Data.IconUri}"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Center"
+                                                     Width="22"
+                                                     Height="22"/>
 
                                     <!-- Description -->
                                     <TextBlock Grid.Column="1" 
-                                               Margin="0,0,0,0"
+                                               Margin="16,0,0,0"
                                                VerticalAlignment="Center"
                                                Text="{Binding Data.Description}"
                                                FontFamily="Segoe UI, Lucida Sans Unicode, Verdana"
@@ -855,21 +778,21 @@
         </controls:MenuDataTree>
 
         <!-- Responsive Items Control (Visible if menu is collapsed) -->
-        <controls:ResponsiveItemsControl Grid.Row="1"
-                                         Orientation="Vertical"
-                                         Background="Transparent"
-                                         ItemsSource="{Binding MenuItems}"
-                                         ItemTemplate="{StaticResource CollapsedMenuItemTemplate}"
-                                         MoreButtonStyle="{StaticResource MenuButtonStyle}"
-                                         MoreButtonContentTemplate="{StaticResource MoreButtonTemplate}"
-                                         ContextMenuItemTemplate="{StaticResource ContextMenuItemTemplate}"
-                                         HorizontalAlignment="Left"
-                                         Visibility="Collapsed"/>
-
-        <!-- Visibility="{Binding IsMenuExpanded, Converter={StaticResource NotBoolToVisibleConverter}}"/> -->
+        <controls:ResponsiveButtonsControl Grid.Row="1"
+                                           Orientation="Vertical"
+                                           Background="Transparent"
+                                           ItemsSource="{Binding MenuItems}"
+                                           VisibleItemTemplate="{StaticResource CollapsedMenuItemContentTemplate}"
+                                           HiddenItemTemplate="{StaticResource ContextMenuItemTemplate}"
+                                           ItemCommand="{Binding ItemCommand}"
+                                           MoreButtonStyle="{DynamicResource MoreButtonStyle}"
+                                           MoreButtonContentTemplate="{DynamicResource MoreButtonTemplate}"
+                                           MoreButtonToolTip="More"
+                                           Visibility="{Binding IsMenuExpanded, Converter={StaticResource NotBoolToVisibleConverter}}"/>
 
         <Separator Grid.Row="2" Height="2" Background="#E6E6E6"/>
 
+        <!-- Fixed bottom menu buttons -->
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -880,52 +803,103 @@
             <Button Grid.Row="0" 
                     Style="{StaticResource MenuButtonStyle}">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    <Grid Margin="12,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <!-- Icon -->
-                    <svgc:SvgCanvas Grid.Column="0" 
-                                    Margin="10,0,10,0"
-                                    Source="../Assets/User.svg"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    Width="32"/>
+                        <!-- Icon -->
+                        <svgc:SvgViewbox Grid.Column="0"
+                                         Source="../Assets/User.svg"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Width="22"
+                                         Height="22"/>
 
-                    <!-- Description -->
-                    <TextBlock Grid.Column="1" 
-                               Margin="0,0,0,0"
-                               VerticalAlignment="Center"
-                               Text="CSTLEIVAD (Admin)"
-                               FontFamily="Segoe UI Regular"
-                               FontSize="15"/>
+                        <!-- Description -->
+                        <TextBlock Grid.Column="1" 
+                                   Margin="16,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="CSTLEIVAD (Admin)"
+                                   FontFamily="Segoe UI Regular"
+                                   FontSize="15"
+                                   Visibility="{Binding IsMenuExpanded, Converter={StaticResource BoolToVisibleConverter}}"/>
+                    </Grid>
+
+                    <Border Background="Transparent"
+                            ToolTip="CSTLEIVAD (Admin)"
+                            Visibility="{Binding IsMenuExpanded, Converter={StaticResource NotBoolToVisibleConverter}}"/>
+
                 </Grid>
             </Button>
 
             <Button Grid.Row="1" 
                     Style="{StaticResource MenuButtonStyle}">
-                <Grid Height="48">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid Margin="12,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <!-- Icon -->
-                    <svgc:SvgCanvas Grid.Column="0" 
-                                    Margin="10,0,10,0"
-                                    Source="../Assets/Configuration.svg"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    Width="32"/>
+                        <!-- Icon -->
+                        <svgc:SvgViewbox Grid.Column="0"
+                                         Source="../Assets/Documentation.svg"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Stretch"
+                                         Width="22"
+                                         Height="22"/>
 
-                    <!-- Description -->
-                    <TextBlock Grid.Column="1" 
-                               Margin="0,0,0,0"
-                               VerticalAlignment="Center"
-                               Text="Settings"
-                               FontFamily="Segoe UI Regular"
-                               FontSize="15"/>
+                        <!-- Description -->
+                        <TextBlock Grid.Column="1" 
+                                   Margin="16,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="Documentation"
+                                   FontFamily="Segoe UI Regular"
+                                   FontSize="15"
+                                   Visibility="{Binding IsMenuExpanded, Converter={StaticResource BoolToVisibleConverter}}"/>
+                    </Grid>
+
+                    <Border Background="Transparent"
+                            ToolTip="Documentation"
+                            Visibility="{Binding IsMenuExpanded, Converter={StaticResource NotBoolToVisibleConverter}}"/>
+
+                </Grid>
+            </Button>
+
+            <Button Grid.Row="2" 
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding OpenSettingsCommand}">
+                <Grid>
+                    <Grid Margin="12,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Icon -->
+                        <svgc:SvgViewbox Grid.Column="0"
+                                         Source="../Assets/Configuration.svg"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Stretch"
+                                         Width="22"
+                                         Height="22"/>
+
+                        <!-- Description -->
+                        <TextBlock Grid.Column="1" 
+                                   Margin="16,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="Settings"
+                                   FontFamily="Segoe UI Regular"
+                                   FontSize="15"
+                                   Visibility="{Binding IsMenuExpanded, Converter={StaticResource BoolToVisibleConverter}}"/>
+                    </Grid>
+
+                    <Border Background="Transparent"
+                            ToolTip="Settings"
+                            Visibility="{Binding IsMenuExpanded, Converter={StaticResource NotBoolToVisibleConverter}}"/>
+
                 </Grid>
             </Button>
         </Grid>

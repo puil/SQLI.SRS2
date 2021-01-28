@@ -16,6 +16,7 @@
     <None Remove="Assets\JTILogo.svg" />
     <None Remove="Assets\Maximize.svg" />
     <None Remove="Assets\Minimize.svg" />
+    <None Remove="Assets\Restore.svg" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="Shell_old.xaml" />
@@ -45,6 +46,7 @@
     </Resource>
     <Resource Include="Assets\Maximize.svg" />
     <Resource Include="Assets\Minimize.svg" />
+    <Resource Include="Assets\Restore.svg" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="Shell.xaml">
