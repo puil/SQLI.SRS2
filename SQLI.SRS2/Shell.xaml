@@ -18,6 +18,7 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
+        UseLayoutRounding="True"
         Icon="Assets/JTILogo.ico">
 
 
@@ -261,15 +262,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Vertical">
-                        <Button Margin="20" Width="200" HorizontalAlignment="Center"
-                                Command="{Binding ChangeEnvironmentConnectionCommand}" Content="Change environment"/>
-                        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}"/>
-                    </StackPanel>
-                    <ContentControl Grid.Column="1" prism:RegionManager.RegionName="{x:Static core:RegionNames.InspectorRegion}"
-                                    Background="LightBlue"/>
+                    <ContentControl Grid.Column="0" prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}"/>
+                    <ContentControl Grid.Column="1" prism:RegionManager.RegionName="{x:Static core:RegionNames.DynamicInspectorRegion}"/>
+                    <ContentControl Grid.Column="2" prism:RegionManager.RegionName="{x:Static core:RegionNames.InspectorRegion}"/>
                 </Grid>
             </Border>
 

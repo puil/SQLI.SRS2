@@ -50,9 +50,6 @@
     <PackageReference Include="SharpVectors" Version="1.7.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\SQLI.SRS2.Business\SQLI.SRS2.Business.csproj" />
     <ProjectReference Include="..\..\SQLI.SRS2.Core\SQLI.SRS2.Core.csproj" />
   </ItemGroup>
@@ -89,11 +86,5 @@
     <Resource Include="Assets\Save.svg" />
     <Resource Include="Assets\Translation.svg" />
     <Resource Include="Assets\User.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Styles\ResponsiveButtonsControlStyles.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
 </Project>

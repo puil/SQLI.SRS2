@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="SQLI.SRS2.Modules.Disclosure.Inspector.DisclosureInspector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+             xmlns:controls="clr-namespace:SQLI.SRS2.Core.Controls;assembly=SQLI.SRS2.Core"
+             xmlns:coreInspector="clr-namespace:SQLI.SRS2.Core.Inspector;assembly=SQLI.SRS2.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="MoreButtonTemplate">
+            <svgc:SvgViewbox Source="../Assets/chevron_down.svg"
+                                 Width="16"
+                                 Height="16"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ContextMenuItemTemplate">
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <svgc:SvgViewbox Source="{Binding IconUri}"
+                                 Width="10"
+                                 Height="10"
+                                 VerticalAlignment="Center"/>
+                <TextBlock Margin="15,0,0,0" 
+                           VerticalAlignment="Center"
+                           Text="{Binding Description}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="InspectorItemTemplate" DataType="{x:Type coreInspector:InspectorItem}">
+            <Border ToolTip="{Binding Description}"
+                    Width="48"
+                    Height="48">
+                <svgc:SvgViewbox Source="{Binding IconUri}"
+                                 Width="16"
+                                 Height="16"/>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <controls:ResponsiveButtonsControl Orientation="Vertical"
+                                       Background="{StaticResource InspectorBackgroundBrush}"
+                                       ItemsSource="{Binding InspectorItems}"
+                                       VisibleItemTemplate="{StaticResource InspectorItemTemplate}"
+                                       HiddenItemTemplate="{StaticResource ContextMenuItemTemplate}"
+                                       InspectorItemCommand="{Binding InspectorItemCommand}"
+                                       MoreButtonStyle="{DynamicResource InspectorButtonStyle}"
+                                       MoreButtonContentTemplate="{DynamicResource MoreButtonTemplate}"
+                                       MoreButtonToolTip="More"/>
+</UserControl>

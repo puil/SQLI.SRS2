@@ -5,6 +5,21 @@
     <AssemblyName>SQLI.SRS2.Modules.Disclosure</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\Block OFF.svg" />
+    <None Remove="Assets\chevron_down.svg" />
+    <None Remove="Assets\Close.svg" />
+    <None Remove="Assets\Delete.svg" />
+    <None Remove="Assets\Documentation.svg" />
+    <None Remove="Assets\Export.svg" />
+    <None Remove="Assets\Import.svg" />
+    <None Remove="Assets\New file.svg" />
+    <None Remove="Assets\New Window.svg" />
+    <None Remove="Assets\Process Candidates.svg" />
+    <None Remove="Assets\Refresh Content.svg" />
+    <None Remove="Assets\Run Workflow.svg" />
+    <None Remove="Assets\Save.svg" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Infragistics.WPF.DataGrids" Version="20.2.16" />
     <PackageReference Include="Infragistics.WPF.Editors" Version="20.2.16" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
@@ -25,5 +40,20 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Block OFF.svg" />
+    <Resource Include="Assets\chevron_down.svg" />
+    <Resource Include="Assets\Close.svg" />
+    <Resource Include="Assets\Delete.svg" />
+    <Resource Include="Assets\Documentation.svg" />
+    <Resource Include="Assets\Export.svg" />
+    <Resource Include="Assets\Import.svg" />
+    <Resource Include="Assets\New file.svg" />
+    <Resource Include="Assets\New Window.svg" />
+    <Resource Include="Assets\Process Candidates.svg" />
+    <Resource Include="Assets\Refresh Content.svg" />
+    <Resource Include="Assets\Run Workflow.svg" />
+    <Resource Include="Assets\Save.svg" />
   </ItemGroup>
 </Project>

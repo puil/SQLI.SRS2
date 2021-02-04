@@ -1,0 +1,50 @@
+﻿<Window x:Class="SQLI.SRS2.Core.Dialogs.ToastDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="ToastDialogWindow" 
+        Height="88" 
+        Width="320"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        SizeToContent="Manual"
+        WindowStartupLocation="Manual"
+        AllowsTransparency="True"
+        Background="Transparent"
+        BorderThickness="0"
+        Closing="ToastWindow_Closing"
+        Name="ToastWindow">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation From="0" To="88" Duration="00:00:00.35"
+                                     Storyboard.TargetName="ToastWindow"
+                                     Storyboard.TargetProperty="Height">
+                        <DoubleAnimation.EasingFunction>
+                            <SineEase EasingMode="EaseIn"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Window.Unloaded">
+            <BeginStoryboard>
+                <Storyboard x:Name="ToastEaseOut"
+                            Completed="ToastEaseOut_Completed">
+                    <DoubleAnimation From="88" To="0" Duration="00:00:00.35"
+                                     Storyboard.TargetName="ToastWindow"
+                                     Storyboard.TargetProperty="Height">
+                        <DoubleAnimation.EasingFunction>
+                            <SineEase EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+</Window>

@@ -61,6 +61,60 @@ namespace SQLI.SRS2.Modules.Disclosure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CAS.
+        /// </summary>
+        public static string DisclosureMaterial_Cas {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_Cas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CoE.
+        /// </summary>
+        public static string DisclosureMaterial_Coe {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_Coe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E_Nbr.
+        /// </summary>
+        public static string DisclosureMaterial_Enbr {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_Enbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FEMA.
+        /// </summary>
+        public static string DisclosureMaterial_Fema {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_Fema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flashpoint temperature.
+        /// </summary>
+        public static string DisclosureMaterial_FlashpointTemperature {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_FlashpointTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Functions.
+        /// </summary>
+        public static string DisclosureMaterial_Functions {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_Functions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to History status.
         /// </summary>
         public static string DisclosureMaterial_HistoryStatus {
@@ -88,6 +142,15 @@ namespace SQLI.SRS2.Modules.Disclosure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Material group.
+        /// </summary>
+        public static string DisclosureMaterial_MaterialGroup {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_MaterialGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string DisclosureMaterial_Name {
@@ -97,11 +160,29 @@ namespace SQLI.SRS2.Modules.Disclosure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percentage.
+        /// </summary>
+        public static string DisclosureMaterial_Percentage {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_Percentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Received on.
         /// </summary>
         public static string DisclosureMaterial_ReceivedOn {
             get {
                 return ResourceManager.GetString("DisclosureMaterial_ReceivedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supplier short name.
+        /// </summary>
+        public static string DisclosureMaterial_SupplierShortName {
+            get {
+                return ResourceManager.GetString("DisclosureMaterial_SupplierShortName", resourceCulture);
             }
         }
         
@@ -134,6 +215,24 @@ namespace SQLI.SRS2.Modules.Disclosure.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Basic Disclosure Data.
+        /// </summary>
+        public static string DisclosureView_basicData {
+            get {
+                return ResourceManager.GetString("DisclosureView_basicData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materials.
+        /// </summary>
+        public static string DisclosureView_materials {
+            get {
+                return ResourceManager.GetString("DisclosureView_materials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disclosure.
         /// </summary>
         public static string DisclosureView_Title {
             get {

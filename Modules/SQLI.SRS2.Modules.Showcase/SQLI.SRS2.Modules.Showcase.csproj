@@ -5,10 +5,20 @@
     <AssemblyName>SQLI.SRS2.Modules.Showcase</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\Close.svg" />
+    <None Remove="Assets\New file.svg" />
+    <None Remove="Assets\New Window.svg" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Infragistics.WPF.DataGrids" Version="20.2.16" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SQLI.SRS2.Core\SQLI.SRS2.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Close.svg" />
+    <Resource Include="Assets\New file.svg" />
+    <Resource Include="Assets\New Window.svg" />
   </ItemGroup>
 </Project>

@@ -6,126 +6,286 @@
              xmlns:res="clr-namespace:SQLI.SRS2.Modules.Disclosure.Resources"
              xmlns:igEdit="http://infragistics.com/Editors"
              xmlns:igDP="http://infragistics.com/DataPresenter"
+             xmlns:igWindows="http://infragistics.com/Windows"
              xmlns:coreConverters="clr-namespace:SQLI.SRS2.Core.Converters;assembly=SQLI.SRS2.Core"
              xmlns:coreExtensions="clr-namespace:SQLI.SRS2.Core.Extensions;assembly=SQLI.SRS2.Core"
+             xmlns:coreControls="clr-namespace:SQLI.SRS2.Core.Controls;assembly=SQLI.SRS2.Core"
              xmlns:busDisclosure="clr-namespace:SQLI.SRS2.Business.Disclosure;assembly=SQLI.SRS2.Business">
     <UserControl.Resources>
         <coreConverters:UniformGridColumnsConverter x:Key="UniformGridColumnsConverter" SizeToChangeColumns="700"/>
 
-        <Style x:Key="TitleStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-            <Setter Property="FontSize" Value="28" />
-            <Setter Property="FontFamily" Value="Segoe UI" />
-            <Setter Property="FontWeight" Value="Light"/>
+        <Style x:Key="LabelAboveControlStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource LabelStyle}">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+            <Setter Property="DockPanel.Dock" Value="Top"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI Regular"/>
         </Style>
 
-        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource LabelStyle}">
+        <Style x:Key="CheckBoxLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource LabelStyle}">
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI Regular"/>
         </Style>
 
         <Style TargetType="{x:Type igEdit:XamCheckEditor}" BasedOn="{StaticResource {x:Type igEdit:XamCheckEditor}}">
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="-6,0,0,0"/>
         </Style>
-
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Margin="16,19,16,21" Background="{StaticResource FormBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <!-- DataGrid with materials -->
-        <igDP:XamDataGrid DataSource="{Binding DisclosureMaterials}"
-                          SelectedDataItem="{Binding SelectedMaterialHeader, UpdateSourceTrigger=PropertyChanged}">
-            <igDP:XamDataGrid.FieldSettings>
-                <igDP:FieldSettings AllowEdit="False"/>
-            </igDP:XamDataGrid.FieldSettings>
-            <igDP:XamDataGrid.FieldLayoutSettings>
-                <igDP:FieldLayoutSettings SelectionTypeRecord="None"/>
-            </igDP:XamDataGrid.FieldLayoutSettings>
-            <igDP:XamDataGrid.FieldLayouts>
-                <igDP:FieldLayout>
-                    <igDP:FieldLayout.Fields>
-                        <igDP:Field Name="Id" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Id}"/>
-                        <igDP:Field Name="Name" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Name}"/>
-                        <igDP:Field Name="HistoryStatus" Label="{x:Static res:ResourceStrings.DisclosureMaterial_HistoryStatus}"/>
-                    </igDP:FieldLayout.Fields>
-                </igDP:FieldLayout>
-            </igDP:XamDataGrid.FieldLayouts>
-        </igDP:XamDataGrid>
+        <!-- Title & help icon -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Style="{StaticResource FormTitleTextBlockStyle}"
+                       Text="{Binding Title}"/>
 
-        <GridSplitter ResizeDirection="Columns" Width="5"/>
+            <coreControls:HelpButton Margin="13,0,0,0"
+                                     Command="{Binding OpenDocumentationCommand}"
+                                     ToolTip="Documentation for Disclosure form"/>
+        </StackPanel>
 
-        <!-- Selected material content -->
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" DataContext="{Binding SelectedMaterial, UpdateSourceTrigger=PropertyChanged}">
-            <Grid>
+        <!-- Form content -->
+        <Grid Grid.Row="1" Margin="0,18,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- DataGrid with materials -->
+            <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{x:Static res:ResourceStrings.DisclosureView_Title}"
-                           Margin="10"
-                           Style="{StaticResource TitleStyle}"/>
+                <!-- Subtitle -->
+                <TextBlock Grid.Row="0" 
+                           Style="{StaticResource FormSubtitleTextBlockStyle}"
+                           Text="{x:Static res:ResourceStrings.DisclosureView_materials}"/>
 
-                <UniformGrid Grid.Row="1"
-                         Columns="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ActualWidth, Converter={StaticResource UniformGridColumnsConverter}}">
-
-                    <DockPanel Margin="5">
-                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Id}"/>
-                        <igEdit:XamTextEditor Text="{Binding Id}"/>
-                    </DockPanel>
-
-                    <DockPanel Margin="5">
-                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Name}"/>
-                        <igEdit:XamTextEditor Text="{Binding Name}"/>
-                    </DockPanel>
-
-                    <DockPanel Margin="5">
-                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_HistoryStatus}"/>
-                        <ComboBox ItemsSource="{Binding Source={coreExtensions:EnumBindingSource {x:Type busDisclosure:HistoryStatusEnum}}}"
-                                  SelectedItem="{Binding HistoryStatus}"/>
-                    </DockPanel>
-
-                    <DockPanel Margin="5">
-                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_ReceivedOn}"/>
-                        <igEdit:XamDateTimeEditor Mask="{}{date}"
-                                                  DisplayMode="IncludeBoth"
-                                                  Value="{Binding ReceivedOn}"/>
-                    </DockPanel>
-
-                    <DockPanel Margin="5">
-                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_ValidFrom}"/>
-                        <igEdit:XamDateTimeEditor Mask="{}{date}"
-                                                  DisplayMode="IncludeBoth"
-                                                  Value="{Binding ValidFrom}"/>
-                    </DockPanel>
-
-                    <DockPanel Margin="5">
-                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_ValidTo}"/>
-                        <igEdit:XamDateTimeEditor Mask="{}{date}"
-                                                  DisplayMode="IncludeBoth"
-                                                  Value="{Binding ValidTo}"/>
-                    </DockPanel>
-
-                    <DockPanel Margin="5">
-                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Incomplete}"/>
-                        <igEdit:XamCheckEditor Value="{Binding Incomplete}"/>
-                    </DockPanel>
-
-                    <DockPanel Margin="5">
-                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Tpd2Relevant}"/>
-                        <igEdit:XamCheckEditor Value="{Binding Tpd2Relevant}"/>
-                    </DockPanel>
-                </UniformGrid>
+                <!-- Materials datagrid -->
+                <igDP:XamDataGrid Grid.Row="1" 
+                                  Margin="0,24,0,0"
+                                  DataSource="{Binding DisclosureMaterials}"
+                                  SelectedDataItem="{Binding SelectedMaterialHeader, UpdateSourceTrigger=PropertyChanged}">
+                    <igDP:XamDataGrid.FieldSettings>
+                        <igDP:FieldSettings AllowEdit="False"/>
+                    </igDP:XamDataGrid.FieldSettings>
+                    <igDP:XamDataGrid.FieldLayoutSettings>
+                        <igDP:FieldLayoutSettings SelectionTypeRecord="None"/>
+                    </igDP:XamDataGrid.FieldLayoutSettings>
+                    <igDP:XamDataGrid.FieldLayouts>
+                        <igDP:FieldLayout>
+                            <igDP:FieldLayout.Fields>
+                                <igDP:Field Name="Id" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Id}"/>
+                                <igDP:Field Name="Name" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Name}"/>
+                                <igDP:Field Name="HistoryStatus" Label="{x:Static res:ResourceStrings.DisclosureMaterial_HistoryStatus}"/>
+                            </igDP:FieldLayout.Fields>
+                        </igDP:FieldLayout>
+                    </igDP:XamDataGrid.FieldLayouts>
+                </igDP:XamDataGrid>
             </Grid>
-        </ScrollViewer>
 
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Style="{StaticResource VerticalGridSplitterStyle}"/>
+
+            <!-- Selected material content -->
+            <Grid Grid.Column="1" Margin="16,0,0,0" DataContext="{Binding SelectedMaterial, UpdateSourceTrigger=PropertyChanged}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!-- Fields and expanders -->
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" MinHeight="100">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Subtitle and revision -->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                                       Style="{StaticResource FormSubtitleTextBlockStyle}"
+                                       Text="{x:Static res:ResourceStrings.DisclosureView_basicData}"/>
+
+                            <ComboBox Grid.Column="1" SelectedIndex="0">
+                                <ComboBoxItem Content="Revision 1"/>
+                                <ComboBoxItem Content="Revision 2"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- Main fields -->
+                        <UniformGrid Grid.Row="1"
+                                     Margin="0,6,0,0"
+                                     Columns="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth, Converter={StaticResource UniformGridColumnsConverter}}">
+
+                            <DockPanel Margin="5">
+                                <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Id}" Style="{StaticResource LabelAboveControlStyle}"/>
+                                <igEdit:XamTextEditor Text="{Binding Id}"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="5">
+                                <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Name}" Style="{StaticResource LabelAboveControlStyle}"/>
+                                <igEdit:XamTextEditor Text="{Binding Name}"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="5">
+                                <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_HistoryStatus}" Style="{StaticResource LabelAboveControlStyle}"/>
+                                <ComboBox ItemsSource="{Binding Source={coreExtensions:EnumBindingSource {x:Type busDisclosure:HistoryStatusEnum}}}"
+                                          SelectedItem="{Binding HistoryStatus}"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="5">
+                                <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_SupplierShortName}" Style="{StaticResource LabelAboveControlStyle}"/>
+                                <igEdit:XamTextEditor Text="{Binding SupplierShortName}"/>
+                            </DockPanel>
+                        </UniformGrid>
+
+                        <!-- Dates information -->
+                        <Expander Grid.Row="2"
+                                  Header="DATES INFORMATION">
+
+                        </Expander>
+
+                        <!-- Status information -->
+                        <Expander Grid.Row="3"
+                                  Header="STATUS INFORMATION">
+
+                            <StackPanel Orientation="Vertical">
+
+                                <UniformGrid Margin="0,0,0,0"
+                                             Columns="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth, Converter={StaticResource UniformGridColumnsConverter}}">
+
+                                    <DockPanel Margin="5">
+                                        <DockPanel DockPanel.Dock="Top">
+                                            <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_MaterialGroup}" Style="{StaticResource LabelAboveControlStyle}"
+                                                   DockPanel.Dock="Left"/>
+
+                                            <coreControls:HelpButton HorizontalAlignment="Right"
+                                                                     IconHeight="16"
+                                                                     IconWidth="16"
+                                                                     Height="18"
+                                                                     Command="{Binding OpenDocumentationCommand}"
+                                                                     ToolTip="Documentation for Material group"/>
+                                        </DockPanel>
+                                        <ComboBox SelectedIndex="0">
+                                            <ComboBoxItem Content="Flavouring Concentrate"/>
+                                        </ComboBox>
+                                    </DockPanel>
+
+                                    <DockPanel Margin="5">
+                                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_FlashpointTemperature}" Style="{StaticResource LabelAboveControlStyle}"/>
+                                        <igEdit:XamTextEditor/>
+                                    </DockPanel>
+                                </UniformGrid>
+
+                                <UniformGrid Margin="0,0,0,0"
+                                             Columns="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth, Converter={StaticResource UniformGridColumnsConverter}}">
+
+                                    <DockPanel Margin="5">
+                                        <igEdit:XamCheckEditor Value="{Binding Incomplete}"
+                                                               VerticalAlignment="Center"/>
+                                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Incomplete}"
+                                               Style="{StaticResource CheckBoxLabelStyle}"/>
+                                    </DockPanel>
+
+                                    <DockPanel Margin="5">
+                                        <igEdit:XamCheckEditor Value="{Binding Tpd2Relevant}"
+                                                               VerticalAlignment="Center"/>
+                                        <Label Content="{x:Static res:ResourceStrings.DisclosureMaterial_Tpd2Relevant}"
+                                               Style="{StaticResource CheckBoxLabelStyle}"/>
+                                    </DockPanel>
+                                </UniformGrid>
+
+                            </StackPanel>
+                        </Expander>
+
+                        <!-- More fields -->
+                        <Grid Grid.Row="4">
+
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+
+                <GridSplitter Grid.Row="1" Style="{StaticResource HorizontalGridSplitterStyle}"/>
+
+                <!-- Tab control -->
+                <igWindows:XamTabControl Grid.Row="2" Margin="0,0,0,0">
+
+                    <!-- Components tab -->
+                    <igWindows:TabItemEx Header="Components">
+                        <Grid>
+                            <TextBlock Text="Components tab content"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </Grid>
+                    </igWindows:TabItemEx>
+
+                    <!-- Flat view tab -->
+                    <igWindows:TabItemEx Header="Flat view">
+                        <Grid Margin="0,0,0,0">
+                            <igDP:XamDataGrid DataSource="{Binding FlatViewItems}">
+                                <igDP:XamDataGrid.FieldSettings>
+                                    <igDP:FieldSettings AllowEdit="False"/>
+                                </igDP:XamDataGrid.FieldSettings>
+                                <igDP:XamDataGrid.FieldLayoutSettings>
+                                    <igDP:FieldLayoutSettings SelectionTypeRecord="None"/>
+                                </igDP:XamDataGrid.FieldLayoutSettings>
+                                <igDP:XamDataGrid.FieldLayouts>
+                                    <igDP:FieldLayout>
+                                        <igDP:FieldLayout.Fields>
+                                            <igDP:Field Name="InternalId" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Id}"/>
+                                            <igDP:Field Name="Name" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Name}"/>
+                                            <igDP:Field Name="Percentage" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Percentage}"/>
+                                            <igDP:Field Name="Functions" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Functions}"/>
+                                            <igDP:Field Name="Cas" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Cas}"/>
+                                            <igDP:Field Name="Fema" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Fema}"/>
+                                            <igDP:Field Name="Coe" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Coe}"/>
+                                            <igDP:Field Name="Enbr" Label="{x:Static res:ResourceStrings.DisclosureMaterial_Enbr}"/>
+                                        </igDP:FieldLayout.Fields>
+                                    </igDP:FieldLayout>
+                                </igDP:XamDataGrid.FieldLayouts>
+                            </igDP:XamDataGrid>
+                        </Grid>
+                    </igWindows:TabItemEx>
+
+                    <!-- Documents tab -->
+                    <igWindows:TabItemEx Header="Documents">
+                        <Grid>
+                            <TextBlock Text="Documents tab content"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </Grid>
+                    </igWindows:TabItemEx>
+
+                    <!-- Technology Regulation tab -->
+                    <igWindows:TabItemEx Header="Technology Regulation">
+                        <Grid>
+                            <TextBlock Text="Technology Regulation tab content"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </Grid>
+                    </igWindows:TabItemEx>
+                </igWindows:XamTabControl>
+            </Grid>
+        </Grid>
     </Grid>
-
-
 </UserControl>

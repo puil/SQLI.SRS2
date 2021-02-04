@@ -5,6 +5,7 @@
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:controls="clr-namespace:SQLI.SRS2.Modules.Menu.Controls"
+             xmlns:coreControls="clr-namespace:SQLI.SRS2.Core.Controls;assembly=SQLI.SRS2.Core"
              xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
              xmlns:coreConverters="clr-namespace:SQLI.SRS2.Core.Converters;assembly=SQLI.SRS2.Core"
              xmlns:behaviors="clr-namespace:SQLI.SRS2.Modules.Menu.Behaviors"
@@ -20,16 +21,7 @@
         <coreConverters:NullToVisibilityConverter IsInverted="True" x:Key="NotNullToVisibilityConverter"/>
         <coreConverters:MathConverter Operation="Multiply" x:Key="MultiplyConverter"/>
         <igPrimDT:BoolToVisibilityConverter x:Key="BoolToVis" />
-
-        <SolidColorBrush x:Key="MenuBackgroundBrush" Color="#F2F2F2"/>
-        <SolidColorBrush x:Key="MenuExpansionButtonBackgroundBrush" Color="{StaticResource Color_008}" />
-        <SolidColorBrush x:Key="TreeBackgroundBrush" Color="{StaticResource Color_016}"/>
-        <SolidColorBrush x:Key="TreeBorderBrush" Color="{StaticResource Color_016}"/>
-        <SolidColorBrush x:Key="SelectedItemBrush" Color="#FF0AB285"/>
-        <SolidColorBrush x:Key="MouseOverItemBrush" Color="#FF0AB285" Opacity="0.5"/>
-        <SolidColorBrush x:Key="MousePressedOnItemBrush" Color="#FF0AB285" Opacity="0.15"/>
-        <!--<SolidColorBrush x:Key="MouseOverItemBrush" Color="{StaticResource Color_006}"/>-->
-
+        
         <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Padding" Value="0"/>
@@ -70,6 +62,13 @@
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00" Storyboard.TargetName="hoverBorder" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" >
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Collapsed</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
                                             <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter" />
                                         </Storyboard>
                                     </VisualState>
@@ -81,11 +80,10 @@
                             </VisualStateManager.VisualStateGroups>
                             <Rectangle Fill="{StaticResource TransparentBrush}"/>
                             <Border x:Name="hoverBorder"
-                                    Background="{StaticResource MouseOverItemBrush}" 
+                                    Background="{StaticResource MenuItemMouseOverBrush}" 
                                     Visibility="Collapsed" />
                             <Border x:Name="pressedBorder"
-                                    Background="{StaticResource MousePressedOnItemBrush}" 
-                                    Opacity="0.5"
+                                    Background="{StaticResource MenuItemMousePressedOnItemBrush}" 
                                     Visibility="Collapsed" />
                             <ContentPresenter x:Name="contentPresenter" Opacity="{TemplateBinding Opacity}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
                         </Grid>
@@ -127,7 +125,7 @@
         
         <!--#region MenuDataTree Styles-->
 
-        <!-- Same as default style from infragistics but changind width and heigh -->
+        <!-- Same as default style from infragistics but changing width and heigh -->
         <Style x:Key="MenuScrollBarStyle" TargetType="{x:Type ScrollBar}">
             <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
             <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
@@ -278,8 +276,8 @@
         <!-- Same as XamDataTree default style but using StretchingNodesPanel instead -->
         <Style x:Key="MenuDataTreeStyle" TargetType="controls:MenuDataTree">
             <Setter Property="DefaultEditorStyle" Value="{StaticResource XamDataTreeDefaultEditorStyle}" />
-            <Setter Property="Background" Value="{StaticResource TreeBackgroundBrush}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource TreeBorderBrush}"/>
+            <Setter Property="Background" Value="{StaticResource MenuDataTreeBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource MenuDataTreeBorderBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}"/>
             <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
@@ -299,6 +297,8 @@
 
                                 <controls:StretchingNodesPanel x:Name="NodesPanel" Background="{StaticResource TransparentBrush}"/>
                                 <ScrollBar x:Name="VerticalScrollBar" Grid.Row="0" Grid.Column="1" Style="{StaticResource MenuScrollBarStyle}"/>
+
+                                <!-- TODO HorizontalScrollBar is never shown. It is pending to change visual behavior on menu item textblocks in order to show ellipsis if text is larger than available space -->
                                 <!--<Grid Grid.Row="2" Visibility="{TemplateBinding HorizontalScrollBarVisibility}">
                                     <ScrollBar x:Name="HorizontalScrollBar" Style="{StaticResource MenuScrollBarStyle}"/>
                                 </Grid>-->
@@ -475,7 +475,7 @@
                                 <Border x:Name="SelectedBorder" 
                                         Grid.Column="4"
                                         Width="6"
-                                        Background="{StaticResource SelectedItemBrush}">
+                                        Background="{StaticResource MenuItemSelectedBackgroundBrush}">
                                     <Border.Visibility>
                                         <MultiBinding Converter="{StaticResource BooleanOrToHiddenVisibilityConverter}">
                                             <Binding Path="Node.IsSelected"/>
@@ -488,7 +488,7 @@
                                         Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1"/>
 
                                 <Border x:Name="hoverBorder" Grid.Column="0" Grid.ColumnSpan="6"
-                                        Background="{StaticResource MouseOverItemBrush}" 
+                                        Background="{StaticResource MenuItemMouseOverBrush}" 
                                         BorderThickness="{TemplateBinding BorderThickness}" 
                                         Visibility="Collapsed" 
                                         CornerRadius="1"></Border>
@@ -531,12 +531,12 @@
                                 <Border x:Name="FirstLevelIsExpandedBorder" 
                                         Grid.Column="0"
                                         Width="6"
-                                        Background="{StaticResource SelectedItemBrush}"/>
+                                        Background="{StaticResource MenuItemSelectedBackgroundBrush}"/>
 
                                 <Border x:Name="hoverBorder" 
                                         Grid.Column="0"
                                         Grid.ColumnSpan="4"
-                                        Background="{StaticResource MouseOverItemBrush}" 
+                                        Background="{StaticResource MenuItemMouseOverBrush}" 
                                         BorderThickness="{TemplateBinding BorderThickness}" 
                                         Visibility="Collapsed" 
                                         CornerRadius="1"/>
@@ -580,7 +580,7 @@
 
                 <Border Grid.Column="0"
                         Width="6"
-                        Background="{StaticResource SelectedItemBrush}">
+                        Background="{StaticResource MenuItemSelectedBackgroundBrush}">
                     <Border.Visibility>
                         <MultiBinding Converter="{StaticResource BooleanOrToHiddenVisibilityConverter}">
                             <Binding Path="IsSelected"/>
@@ -612,7 +612,7 @@
 
                 <Border Grid.Column="0" 
                         Width="6"
-                        Background="{StaticResource SelectedItemBrush}">
+                        Background="{StaticResource MenuItemSelectedBackgroundBrush}">
                     <Border.Visibility>
                         <MultiBinding Converter="{StaticResource BooleanOrToHiddenVisibilityConverter}">
                             <Binding Path="IsSelected"/>
@@ -656,7 +656,7 @@
 
     </UserControl.Resources>
 
-    <Grid Background="{StaticResource MenuBackgroundBrush}" 
+    <Grid Background="{DynamicResource MenuBackgroundBrush}" 
           Width="250"
           Style="{StaticResource ExpandableGridStyle}">
         <Grid.RowDefinitions>
@@ -704,6 +704,11 @@
                     <ig:NodeLayout.ItemTemplate>
                         <DataTemplate>
                             <Border Background="Transparent">
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Open in new window"/>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
                                 <Grid Height="48">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -750,7 +755,7 @@
                                     <!-- Icon -->
                                     <svgc:SvgViewbox Grid.Column="0" 
                                                      Margin="0,0,10,0"
-                                                     Source="{Binding Data.IconUri}"
+                                                     Source="{Binding Data.IconUri, TargetNullValue={x:Null}}"
                                                      VerticalAlignment="Center"
                                                      HorizontalAlignment="Center"
                                                      Width="20"
@@ -778,17 +783,17 @@
         </controls:MenuDataTree>
 
         <!-- Responsive Items Control (Visible if menu is collapsed) -->
-        <controls:ResponsiveButtonsControl Grid.Row="1"
-                                           Orientation="Vertical"
-                                           Background="Transparent"
-                                           ItemsSource="{Binding MenuItems}"
-                                           VisibleItemTemplate="{StaticResource CollapsedMenuItemContentTemplate}"
-                                           HiddenItemTemplate="{StaticResource ContextMenuItemTemplate}"
-                                           ItemCommand="{Binding ItemCommand}"
-                                           MoreButtonStyle="{DynamicResource MoreButtonStyle}"
-                                           MoreButtonContentTemplate="{DynamicResource MoreButtonTemplate}"
-                                           MoreButtonToolTip="More"
-                                           Visibility="{Binding IsMenuExpanded, Converter={StaticResource NotBoolToVisibleConverter}}"/>
+        <coreControls:ResponsiveButtonsControl Grid.Row="1"
+                                               Orientation="Vertical"
+                                               Background="Transparent"
+                                               ItemsSource="{Binding MenuItems}"
+                                               VisibleItemTemplate="{StaticResource CollapsedMenuItemContentTemplate}"
+                                               HiddenItemTemplate="{StaticResource ContextMenuItemTemplate}"
+                                               InspectorItemCommand="{Binding InspectorItemCommand}"
+                                               MoreButtonStyle="{DynamicResource MoreButtonStyle}"
+                                               MoreButtonContentTemplate="{DynamicResource MoreButtonTemplate}"
+                                               MoreButtonToolTip="More"
+                                               Visibility="{Binding IsMenuExpanded, Converter={StaticResource NotBoolToVisibleConverter}}"/>
 
         <Separator Grid.Row="2" Height="2" Background="#E6E6E6"/>
 

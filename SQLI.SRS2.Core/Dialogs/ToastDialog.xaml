@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="SQLI.SRS2.Core.Dialogs.ToastDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SQLI.SRS2.Core.Dialogs"
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+             xmlns:helpers="clr-namespace:SQLI.SRS2.Core.Helpers"
+             xmlns:converters="clr-namespace:SQLI.SRS2.Core.Converters"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+        <converters:EnumToSvgIconUriConverter x:Key="EnumToSvgIconUriConverter"/>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static local:NotificationType.Success}">
+                        <Setter Property="Background" Value="{StaticResource ToastSuccessBackgroundBrush}"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static local:NotificationType.Warning}">
+                        <Setter Property="Background" Value="{StaticResource ToastWarningBackgroundBrush}"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static local:NotificationType.Error}">
+                        <Setter Property="Background" Value="{StaticResource ToastErrorBackgroundBrush}"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding NotificationType}" Value="{x:Static local:NotificationType.Custom}">
+                        <Setter Property="Background" Value="{StaticResource ToastCustomBackgroundBrush}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
+        <!-- Notification content -->
+        <Grid Margin="21,0,16,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Icon -->
+            <svgc:SvgViewbox Grid.Column="0" 
+                             Source="{Binding NotificationType, Converter={StaticResource EnumToSvgIconUriConverter}, TargetNullValue={x:Null}}"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Width="30"
+                             Height="30"/>
+
+            <TextBlock Grid.Column="1"
+                       Margin="13,0,0,0"
+                       Text="{Binding Message}"
+                       TextWrapping="Wrap"
+                       Foreground="{StaticResource ToastMessageForeground}"
+                       FontFamily="Segoe UI Regular"
+                       FontSize="14"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</UserControl>

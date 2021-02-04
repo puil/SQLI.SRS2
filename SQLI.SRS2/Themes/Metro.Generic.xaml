@@ -1,15 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:igThemes="http://infragistics.com/Themes">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
-        <igThemes:PrimitivesMetro />
-        <igThemes:EditorsMetro />
-        <ResourceDictionary Source="Metro/Metro.Theme.Colors.xaml"/>
         <ResourceDictionary Source="Metro/Metro.MSControls.Core.Implicit.xaml"/>
         <ResourceDictionary Source="Metro/Metro.xamDialogWindow.xaml"/>
         <ResourceDictionary Source="Metro/Metro.xamDataPresenter.xaml"/>
         <ResourceDictionary Source="Metro/Metro.xamEditors.xaml"/>
-
-        <ResourceDictionary Source="pack://application:,,,/SQLI.SRS2.Modules.Menu;component/Styles/ResponsiveButtonsControlStyles.xaml"/>
+        <ResourceDictionary Source="Metro/Metro.JTIControls.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

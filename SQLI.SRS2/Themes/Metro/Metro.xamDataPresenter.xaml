@@ -1,8 +1,67 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:igThemes="http://infragistics.com/Themes">
+                    xmlns:igThemes="http://infragistics.com/Themes"
+                    xmlns:igDP="http://infragistics.com/DataPresenter">
     <ResourceDictionary.MergedDictionaries>
         <igThemes:PrimitivesMetro />
         <igThemes:DataPresenterMetro />
+
+        <ResourceDictionary Source="Metro.Styles.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
+    <!-- DataRecordCell Brushes -->
+    <SolidColorBrush x:Key="DataRecordCellAreaBackground" Color="{StaticResource Color_016}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBorderBrush" Color="{StaticResource Color_004}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBackgroundActive" Color="{StaticResource Color_026}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBorderActiveBrush" Color="{StaticResource Color_024}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBackgroundAlternate" Color="{StaticResource Color_008}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBorderAlternateBrush" Color="{StaticResource Color_004}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBgHover" Color="{StaticResource Color_006}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBorderHoverBrush" Color="{StaticResource Color_003}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBgSelected" Color="{StaticResource Color_026}"/>
+    <SolidColorBrush x:Key="DataRecordCellAreaBorderSelectedBrush" Color="{StaticResource Color_024}"/>
+
+    <!-- CellValuePresenter Brushes -->
+    <SolidColorBrush x:Key="CellVPBackgroundBrush" Color="{StaticResource Color_016}"/>
+    <SolidColorBrush x:Key="CellVPBorderBrush" Color="{StaticResource Color_004}"/>
+    <SolidColorBrush x:Key="CellVPBackgroundActive" Color="{StaticResource Color_026}"/>
+    <SolidColorBrush x:Key="CellVPBorderActiveBrush" Color="{StaticResource Color_024}"/>
+    <SolidColorBrush x:Key="CellVPBackgroundFieldSelected" Color="{StaticResource Color_026}"/>
+    <SolidColorBrush x:Key="CellVPBorderFieldSelectedBrush" Color="{StaticResource Color_026}"/>
+    <SolidColorBrush x:Key="CellVPBackgroundHover" Color="{StaticResource Color_016}"/>
+    <SolidColorBrush x:Key="CellVPBorderHoverBrush" Color="{StaticResource Color_004}"/>
+    <SolidColorBrush x:Key="CellVPBackgroundPrimary" Color="{StaticResource Color_004}" Opacity="0.2"/>
+    <SolidColorBrush x:Key="CellVPBorderPrimaryBrush" Color="{StaticResource Color_016}"/>
+    <SolidColorBrush x:Key="CellVPBackgroundSelected" Color="{StaticResource Color_026}"/>
+    <SolidColorBrush x:Key="CellVPBorderSelectedBrush" Color="{StaticResource Color_024}"/>
+    <SolidColorBrush x:Key="CellVPForegroundBrush" Color="{StaticResource Color_001}"/>
+
+    <Style TargetType="{x:Type igDP:CellValuePresenter}" BasedOn="{StaticResource {x:Type igDP:CellValuePresenter}}">
+        <Setter Property="BackgroundActive" Value="{StaticResource CellVPBackgroundActive}"/>
+        <Setter Property="BackgroundHover" Value="{StaticResource CellVPBackgroundHover}"/>
+        <Setter Property="BackgroundSelected" Value="{StaticResource CellVPBackgroundSelected}"/>
+        <Setter Property="BackgroundFieldSelected" Value="{StaticResource CellVPBackgroundFieldSelected}"/>
+        <Setter Property="BackgroundPrimary" Value="{StaticResource CellVPBackgroundPrimary}"/>
+
+        <Setter Property="BorderActiveBrush" Value="{StaticResource CellVPBorderActiveBrush}"/>
+        <Setter Property="BorderHoverBrush" Value="{StaticResource CellVPBorderHoverBrush}"/>
+        <Setter Property="BorderSelectedBrush" Value="{StaticResource CellVPBorderSelectedBrush}"/>
+        <Setter Property="BorderFieldSelectedBrush" Value="{StaticResource CellVPBorderFieldSelectedBrush}"/>
+        <Setter Property="BorderPrimaryBrush" Value="{StaticResource CellVPBorderPrimaryBrush}"/>
+    </Style>
+
+    <Style TargetType="{x:Type igDP:DataRecordCellArea}" BasedOn="{StaticResource {x:Type igDP:DataRecordCellArea}}">
+        <Setter Property="Background" Value="{StaticResource DataRecordCellAreaBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DataRecordCellAreaBorderBrush}"/>
+        <Setter Property="BackgroundHover" Value="{StaticResource DataRecordCellAreaBgHover}"/>
+        <Setter Property="BorderHoverBrush" Value="{StaticResource DataRecordCellAreaBorderHoverBrush}"/>
+        <Setter Property="BackgroundActive" Value="{StaticResource DataRecordCellAreaBackgroundActive}"/>
+        <Setter Property="BorderActiveBrush" Value="{StaticResource DataRecordCellAreaBorderActiveBrush}"/>
+        <Setter Property="BackgroundAlternate" Value="{StaticResource DataRecordCellAreaBackgroundAlternate}"/>
+        <Setter Property="BorderAlternateBrush" Value="{StaticResource DataRecordCellAreaBorderAlternateBrush}"/>
+        <Setter Property="BackgroundSelected" Value="{StaticResource DataRecordCellAreaBgSelected}"/>
+        <Setter Property="BorderSelectedBrush" Value="{StaticResource DataRecordCellAreaBorderSelectedBrush}"/>
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+    </Style>
 </ResourceDictionary>

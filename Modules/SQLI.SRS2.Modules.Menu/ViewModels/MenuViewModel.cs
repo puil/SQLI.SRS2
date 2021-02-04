@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 using SQLI.SRS2.Business.Menu;
 using SQLI.SRS2.Core;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
     public class MenuViewModel : BindableBase
     {
         private readonly IRegionManager regionManager;
+        private readonly IDialogService dialogService;
 
         private bool isMenuExpanded = true;
         public bool IsMenuExpanded { get => isMenuExpanded; set => SetProperty(ref isMenuExpanded, value); }
@@ -33,7 +35,13 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
         private DelegateCommand openSettingsCommand;
         public DelegateCommand OpenSettingsCommand => openSettingsCommand ??= new DelegateCommand(ExecuteOpenSettingsCommand);
 
-        void ExecuteOpenSettingsCommand() => NavigateToView("Settings");
+        void ExecuteOpenSettingsCommand()
+        {
+            NavigateToView("Settings");
+
+            // TODO Settings view should be opened in a new window. Next statement is a sample but "SingleWindow" is not created nor implemented anywhere yet
+            // dialogService.Show("Settings", null, null, "SingleWindow");
+        }
 
 
         private DelegateCommand expandCollapseMenuCommand;
@@ -42,31 +50,30 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
         void ExecuteExpandCollapseMenuCommand() => IsMenuExpanded = !IsMenuExpanded;
 
 
-        private DelegateCommand<object> itemCommand;
-        public DelegateCommand<object> ItemCommand => itemCommand ??= new DelegateCommand<object>(ExecuteItemCommand);
+        private DelegateCommand<object> inspectorItemCommand;
+        public DelegateCommand<object> InspectorItemCommand => inspectorItemCommand ??= new DelegateCommand<object>(ExecuteInspectorItemCommand);
         
-        void ExecuteItemCommand(object parameter)
+        void ExecuteInspectorItemCommand(object parameter)
         {
             if (parameter is MenuItem menuItem)
                 ActiveDataItem = menuItem;
         }
 
 
-        // TODO Pending to implementing the previous command but changing name
-        //private DelegateCommand<object> collapsedMenuItemCommand;
-        //public DelegateCommand<object> CollapsedMenuItemCommand => collapsedMenuItemCommand ??= new DelegateCommand<object>(ExecuteCollapsedMenuItemCommand);
+        private DelegateCommand openInNewWindowCommand;
+        public DelegateCommand OpenInNewWindowCommand => openInNewWindowCommand ??= new DelegateCommand(ExecuteOpenInNewWindowCommand);
 
-        //void ExecuteCollapsedMenuItemCommand(object parameter)
-        //{
-        //    if (parameter is MenuItem menuItem)
-        //        ActiveDataItem = menuItem;
-        //}
+        void ExecuteOpenInNewWindowCommand()
+        {
+            // TODO This is the command that should be executed when some menu item would be opened in a new window
+        }
 
         #endregion
 
-        public MenuViewModel(IRegionManager regionManager)
+        public MenuViewModel(IRegionManager regionManager, IDialogService dialogService)
         {
             this.regionManager = regionManager;
+            this.dialogService = dialogService;
 
             LoadMenuItems();
         }
@@ -115,19 +122,19 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
 
         private void CreateMenuItemsForTestingPurposes()
         {
-            CreateMenuItem("Administration", "Administration", "../Assets/Administration.svg", "MSInternalControlsView");
+            var administrationMenuItem = CreateMenuItem("Administration", "Administration", "../Assets/Administration.svg", null);
+            CreateChildMenuItem("Showcase", "Showcase", "../Assets/File Automation.svg", "MSInternalControlsView", administrationMenuItem);
 
             var powerUsersMenuItem = CreateMenuItem("PowerUsers", "Power Users", "../Assets/PowerUsers.svg", null);
             var powerUsersYear2020MenuItem = CreateChildMenuItem("Year2020", "Year 2020", null, null, powerUsersMenuItem);
-            var fileType01MenuItem = CreateChildMenuItem("FileType01", "File type 01", "../Assets/Administration.svg", "MSInternalControlsView", powerUsersYear2020MenuItem);
-            CreateChildMenuItem("FileType55", "File type 55", "../Assets/Administration.svg", "MSInternalControlsView", fileType01MenuItem);
-            CreateChildMenuItem("FileType02", "File type 02", null, "DisclosureView", powerUsersYear2020MenuItem);
+            CreateChildMenuItem("FileType01", "File type 01", "../Assets/File Automation.svg", "MSInternalControlsView", powerUsersYear2020MenuItem);
+            CreateChildMenuItem("FileType02", "File type 02", "../Assets/File Automation.svg", "DisclosureView", powerUsersYear2020MenuItem);
             var powerUsersYear2021MenuItem = CreateChildMenuItem("Year2021", "Year 2021", null, null, powerUsersMenuItem);
             CreateChildMenuItem("FileType03", "File type 03", null, "MSInternalControlsView", powerUsersYear2021MenuItem);
             CreateChildMenuItem("FileType04", "File type 04", null, "DisclosureView", powerUsersYear2021MenuItem);
 
             CreateMenuItem("Ingredients", "Ingredients", "../Assets/Ingredients.svg", null);
-            CreateMenuItem("Disclosure", "Disclosure", "../Assets/Disclosure.svg", null);
+            CreateMenuItem("Disclosure", "Disclosure", "../Assets/Disclosure.svg", "DisclosureView");
             CreateMenuItem("SAP", "SAP", "../Assets/SAP.svg", null);
             CreateMenuItem("Translation", "Translation", "../Assets/Translation.svg", null);
             CreateMenuItem("NonSAP", "Non SAP", "../Assets/SAPnon.svg", null);
@@ -155,7 +162,7 @@ namespace SQLI.SRS2.Modules.Menu.ViewModels
                 else
                 {
                     ActiveDataItem.IsSelected = true;
-                    //IsMenuExpanded = true;        // Uncomment if we want to expand menu tree alwaysy
+                    //IsMenuExpanded = true;        // Uncomment if we want to expand menu tree everytime a first level item is selected and it has no children
                 }
 
                 CollapseAllFirstNodesExceptActive();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLI.SRS2.Core.Dialogs;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -18,6 +19,13 @@ namespace SQLI.SRS2
         public Shell()
         {
             InitializeComponent();
+
+            // TODO This statement is for testing the Acrylic theme
+            //Core.Acrylic.WindowBlur.SetIsEnabled(this, true);
+
+            SizeChanged += new SizeChangedEventHandler(Window_SizeChanged);
+            StateChanged += new EventHandler(Window_StateChanged);
+            LocationChanged += new EventHandler(Window_LocationChanged);
         }
 
         [DllImport("user32.dll")]
@@ -107,6 +115,26 @@ namespace SQLI.SRS2
 
             ReleaseCapture();
             SendMessage(new WindowInteropHelper(this).Handle, WmNclbuttondown, HtCaption, 0);
+        }
+
+
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e) => ChildRelocate();
+
+        private void Window_StateChanged(object sender, EventArgs e) => ChildRelocate();
+
+        private void Window_LocationChanged(object sender, EventArgs e) => ChildRelocate();
+
+
+        private void ChildRelocate()
+        {
+            foreach (Window item in Application.Current.Windows)
+            {
+                if (item is ToastDialogWindow toastDialogWindow)
+                {
+                    toastDialogWindow.SetStartupLocation();
+                }
+            }
         }
     }
 }

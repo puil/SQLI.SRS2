@@ -1,6 +1,6 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
-using Prism.Regions;
 using SQLI.SRS2.Core;
 using System.Windows;
 
@@ -32,40 +32,24 @@ namespace SQLI.SRS2
             set { SetProperty(ref environmentName, value); }
         }
 
-        public int MyProperty { get; set; }
-
         private DelegateCommand minimizeCommand;
         public DelegateCommand MinimizeCommand => minimizeCommand ??= new DelegateCommand(ExecuteMinimizeCommand);
-
 
         private DelegateCommand maximizeCommand;
         public DelegateCommand MaximizeCommand => maximizeCommand ??= new DelegateCommand(ExecuteMaximizeCommand);
 
-        
         private DelegateCommand closeCommand;
         public DelegateCommand CloseCommand => closeCommand ??= new DelegateCommand(ExecuteCloseCommand);
 
-        private DelegateCommand changeEnvironmentConnectionCommand;
-        private readonly IRegionManager regionManager;
-
-        public DelegateCommand ChangeEnvironmentConnectionCommand => changeEnvironmentConnectionCommand ??= new DelegateCommand(ExecuteChangeEnvironmentConnectionCommand);
-
-        void ExecuteChangeEnvironmentConnectionCommand()
-        {
-            IsEnvironmentConnected = !IsEnvironmentConnected;
-
-            //regionManager.RequestNavigate(RegionNames.InspectorRegion, "InspectorView");
-        }
-
-        public ShellViewModel(IRegionManager regionManager)
+        public ShellViewModel(IEventAggregator eventAggregator)
         {
             EnvironmentName = "DEV environment";
             IsEnvironmentConnected = true;
 
-            this.regionManager = regionManager;
-            
-            //this.regionManager.RequestNavigate(RegionNames.InspectorRegion, "InspectorView");
+            eventAggregator.GetEvent<EnvironmentConnectedEvent>().Subscribe(OnEnvironmentConnectedChanged);
         }
+
+        private void OnEnvironmentConnectedChanged(bool isEnvironmentConnected) => IsEnvironmentConnected = isEnvironmentConnected;
 
         void ExecuteMinimizeCommand()
         {
@@ -82,9 +66,6 @@ namespace SQLI.SRS2
 
         void ExecuteCloseCommand() => Close();
 
-        private void Close()
-        {
-            System.Windows.Application.Current.Shutdown();
-        }
+        private void Close() => System.Windows.Application.Current.Shutdown();
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
+using Prism.Regions;
+using SQLI.SRS2.Core.Dialogs;
+using SQLI.SRS2.Core.Regions;
 using SQLI.SRS2.Modules.Disclosure;
 using SQLI.SRS2.Modules.Menu;
 using SQLI.SRS2.Modules.Showcase;
@@ -21,11 +24,12 @@ namespace SQLI.SRS2
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IMessageService, MessageService>();
             containerRegistry.RegisterSingleton<IDisclosureService, DisclosureService>();
 
-            //containerRegistry.RegisterSingleton<IRegionNavigationContentLoader, ScopedRegionNavigationContentLoader>();
-            //containerRegistry.RegisterForNavigation<InspectorView>();
+            containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>();
+            containerRegistry.RegisterDialog<ToastDialog, ToastDialogViewModel>();
+            
+            containerRegistry.RegisterDialogWindow<ToastDialogWindow>(nameof(ToastDialogWindow));
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
@@ -33,6 +37,13 @@ namespace SQLI.SRS2
             moduleCatalog.AddModule<MenuModule>();
             moduleCatalog.AddModule<DisclosureModule>();
             moduleCatalog.AddModule<ShowcaseModule>();
+        }
+
+        protected override void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
+        {
+            base.ConfigureDefaultRegionBehaviors(regionBehaviors);
+
+            regionBehaviors.AddIfMissing(DependentViewRegionBehavior.BehaviorKey, typeof(DependentViewRegionBehavior));
         }
     }
 }

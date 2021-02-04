@@ -8,5 +8,6 @@ namespace SQLI.SRS2.Core
         public const string ContentRegion = "ContentRegion";
         public const string TabRegion = "TabRegion";
         public const string InspectorRegion = "InspectorRegion";
+        public const string DynamicInspectorRegion = "DynamicInspectorRegion";
     }
 }

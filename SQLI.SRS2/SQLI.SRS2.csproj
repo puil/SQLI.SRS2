@@ -9,13 +9,16 @@
     <Compile Remove="Shell_old.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\chevron_down.svg" />
     <None Remove="Assets\Close.svg" />
     <None Remove="Assets\Connection OFF.svg" />
     <None Remove="Assets\Connection ON.svg" />
+    <None Remove="Assets\Documentation.svg" />
     <None Remove="Assets\JTILogo.ico" />
     <None Remove="Assets\JTILogo.svg" />
     <None Remove="Assets\Maximize.svg" />
     <None Remove="Assets\Minimize.svg" />
+    <None Remove="Assets\New Window.svg" />
     <None Remove="Assets\Restore.svg" />
   </ItemGroup>
   <ItemGroup>
@@ -37,15 +40,18 @@
     <ProjectReference Include="..\Services\SQLI.SRS2.Services\SQLI.SRS2.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\chevron_down.svg" />
     <Resource Include="Assets\Close.svg" />
     <Resource Include="Assets\Connection OFF.svg" />
     <Resource Include="Assets\Connection ON.svg" />
+    <Resource Include="Assets\Documentation.svg" />
     <Resource Include="Assets\JTILogo.svg" />
     <Resource Include="Assets\JTILogo.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Maximize.svg" />
     <Resource Include="Assets\Minimize.svg" />
+    <Resource Include="Assets\New Window.svg" />
     <Resource Include="Assets\Restore.svg" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +64,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\MetroDark.Generic.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\MetroDark\MetroDark.JTIControls.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Metro\Metro.JTIControls.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

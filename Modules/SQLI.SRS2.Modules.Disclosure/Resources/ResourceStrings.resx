@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DisclosureMaterial_Cas" xml:space="preserve">
+    <value>CAS</value>
+  </data>
+  <data name="DisclosureMaterial_Coe" xml:space="preserve">
+    <value>CoE</value>
+  </data>
+  <data name="DisclosureMaterial_Enbr" xml:space="preserve">
+    <value>E_Nbr</value>
+  </data>
+  <data name="DisclosureMaterial_Fema" xml:space="preserve">
+    <value>FEMA</value>
+  </data>
+  <data name="DisclosureMaterial_FlashpointTemperature" xml:space="preserve">
+    <value>Flashpoint temperature</value>
+  </data>
+  <data name="DisclosureMaterial_Functions" xml:space="preserve">
+    <value>Functions</value>
+  </data>
   <data name="DisclosureMaterial_HistoryStatus" xml:space="preserve">
     <value>History status</value>
   </data>
@@ -126,11 +144,20 @@
   <data name="DisclosureMaterial_Incomplete" xml:space="preserve">
     <value>Incomplete</value>
   </data>
+  <data name="DisclosureMaterial_MaterialGroup" xml:space="preserve">
+    <value>Material group</value>
+  </data>
   <data name="DisclosureMaterial_Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="DisclosureMaterial_Percentage" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
   <data name="DisclosureMaterial_ReceivedOn" xml:space="preserve">
     <value>Received on</value>
+  </data>
+  <data name="DisclosureMaterial_SupplierShortName" xml:space="preserve">
+    <value>Supplier short name</value>
   </data>
   <data name="DisclosureMaterial_Tpd2Relevant" xml:space="preserve">
     <value>TPD2 Relevant</value>
@@ -141,7 +168,13 @@
   <data name="DisclosureMaterial_ValidTo" xml:space="preserve">
     <value>Valid to</value>
   </data>
-  <data name="DisclosureView_Title" xml:space="preserve">
+  <data name="DisclosureView_basicData" xml:space="preserve">
     <value>Basic Disclosure Data</value>
+  </data>
+  <data name="DisclosureView_materials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="DisclosureView_Title" xml:space="preserve">
+    <value>Disclosure</value>
   </data>
 </root>

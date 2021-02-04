@@ -8,13 +8,6 @@
     <UserControl.Resources>
         <coreConverters:UniformGridColumnsConverter x:Key="UniformGridColumnsConverter" SizeToChangeColumns="700"/>
 
-        <Style x:Key="TitleStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-            <Setter Property="FontSize" Value="28" />
-            <Setter Property="FontFamily" Value="Segoe UI" />
-            <Setter Property="FontWeight" Value="Light"/>
-        </Style>
-
         <Style TargetType="{x:Type Label}" BasedOn="{StaticResource LabelStyle}">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="150"/>
@@ -25,22 +18,28 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="-6,0,0,0"/>
         </Style>
-
     </UserControl.Resources>
 
-    <!-- Selected material content -->
-    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" DataContext="{Binding SelectedMaterial, UpdateSourceTrigger=PropertyChanged}">
-        <Grid>
+    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+        <Grid Background="{StaticResource FormBackgroundBrush}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Standard controls from Microsoft"
                         Margin="10"
-                        Style="{StaticResource TitleStyle}"/>
+                        Style="{StaticResource FormTitleTextBlockStyle}"/>
 
-            <UniformGrid Grid.Row="1"
+            <TextBlock Grid.Row="1"
+                       Text="The inspector of this view is an UserControl where every button is hardcoded and placed inside a normal StackPanel. That means that this inspector is not responsive"
+                       TextWrapping="Wrap"
+                       Margin="10"/>
+
+            <UniformGrid Grid.Row="2"
                          Columns="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ActualWidth, Converter={StaticResource UniformGridColumnsConverter}}">
 
                 <DockPanel Margin="5">
@@ -60,7 +59,17 @@
 
                 <DockPanel Margin="5">
                     <Label Content="Button"/>
-                    <Button Content="Button"/>
+                    <Button Content="Show toast - OK" Command="{Binding ShowToastCommand}" CommandParameter="Ok"/>
+                </DockPanel>
+
+                <DockPanel Margin="5">
+                    <Label Content="Button"/>
+                    <Button Content="Show toast - Warning" Command="{Binding ShowToastCommand}" CommandParameter="Warning"/>
+                </DockPanel>
+
+                <DockPanel Margin="5">
+                    <Label Content="Button"/>
+                    <Button Content="Show toast - Error" Command="{Binding ShowToastCommand}" CommandParameter="Error"/>
                 </DockPanel>
 
                 <DockPanel Margin="5">
@@ -72,7 +81,7 @@
 
                 <DockPanel Margin="5">
                     <Label Content="Button with tooltip"/>
-                    <Button Content="Button" ToolTip="Sample tooltip"/>
+                    <Button Content="Show modal notification dialog" ToolTip="Sample tooltip" Command="{Binding ShowDialogNotificationCommand}"/>
                 </DockPanel>
                 
                 <DockPanel Margin="5">
@@ -90,6 +99,18 @@
                 </DockPanel>
 
             </UniformGrid>
+
+            <Expander Grid.Row="3" Margin="10" Header="Expander 1">
+                <Grid Width="500" Height="200">
+                    <TextBlock Text="Textbox inside expander"/>
+                </Grid>
+            </Expander>
+
+            <Expander Grid.Row="4" Margin="10" Header="Expander 2">
+                <Grid Width="500" Height="200">
+                    <Button Content="Textbox inside expander 2"/>
+                </Grid>
+            </Expander>
         </Grid>
     </ScrollViewer>
 

@@ -9,26 +9,28 @@
              x:Name="SettingsView">
     <UserControl.Resources>
         <coreConverters:UniformGridColumnsConverter x:Key="UniformGridColumnsConverter"/>
-
-        <Style x:Key="TitleStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-            <Setter Property="FontSize" Value="28" />
-            <Setter Property="FontFamily" Value="Segoe UI" />
-            <Setter Property="FontWeight" Value="Light"/>
-        </Style>
     </UserControl.Resources>
     
-    <Grid >
+    <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Settings"
-                   Margin="10"
-                   Style="{StaticResource TitleStyle}"/>
-        
-        <UniformGrid Grid.Row="1"
+        <TextBlock Text="{Binding Title}"
+                   Style="{StaticResource FormTitleTextBlockStyle}"/>
+
+        <TextBlock Grid.Row="1" Margin="0,10,0,0" 
+                   Text="This view should be opened in a new Window because it is not placed in the tree area of the menu. If some item from tree is selected and this view is opened, the selected item in the tree doesn't unselect automatically."
+                   TextWrapping="Wrap"/>
+
+        <TextBlock Grid.Row="2" Margin="0,10,0,0" 
+                   Text="This view doesn't have any inspector view associated, so inspector is collapsed."
+                   TextWrapping="Wrap"/>
+
+        <UniformGrid Grid.Row="3" Margin="0,10,0,0"
                      Columns="{Binding ElementName=SettingsView, Path=ActualWidth, Converter={StaticResource UniformGridColumnsConverter}}">
             <DockPanel>
                 <Label Content="Theme"/>
@@ -40,7 +42,9 @@
                                        coreHelpers:FocusHelper.SetKeyboardFocusOnLoad="True">
                 </igEdit:XamComboEditor>
             </DockPanel>
-        </UniformGrid>
 
+            <Button Margin="0,20,0,0" Width="200" HorizontalAlignment="Center"
+                    Command="{Binding ChangeEnvironmentConnectionCommand}" Content="Change environment"/>
+        </UniformGrid>
     </Grid>
 </UserControl>

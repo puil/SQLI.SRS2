@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="SQLI.SRS2.Modules.Showcase.Inspector.MSInternalControlsInspector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:coreHelpers="clr-namespace:SQLI.SRS2.Core.Helpers;assembly=SQLI.SRS2.Core"
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource InspectorButtonStyle}"/>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Width="48"
+                Background="{StaticResource InspectorBackgroundBrush}">
+        
+        <Button Command="{Binding InspectorCommand}"
+                CommandParameter="Close">
+            <Border ToolTip="Close">
+                <svgc:SvgViewbox Source="../Assets/Close.svg"
+                                 Width="16"
+                                 Height="16"/>
+            </Border>
+        </Button>
+        
+        <Button Command="{Binding InspectorCommand}"
+                CommandParameter="NewWindow">
+            <Border ToolTip="Open in new window">
+                <svgc:SvgViewbox Source="../Assets/New Window.svg"
+                                 Width="16"
+                                 Height="16"/>
+            </Border>
+        </Button>
+
+        <Separator/>
+
+        <Button Command="{Binding InspectorCommand}"
+                CommandParameter="NewFile">
+            <Border ToolTip="New file">
+                <svgc:SvgViewbox Source="../Assets/New file.svg"
+                                 Width="16"
+                                 Height="16"/>
+            </Border>
+        </Button>
+    </StackPanel>
+</UserControl>

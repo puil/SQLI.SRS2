@@ -5,9 +5,39 @@
     <AssemblyName>SQLI.SRS2.Core</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\Alert.svg" />
+    <None Remove="Assets\chevron_down.svg" />
+    <None Remove="Assets\Close.svg" />
+    <None Remove="Assets\Delete.svg" />
+    <None Remove="Assets\KO.svg" />
+    <None Remove="Assets\OK.svg" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Infragistics.WPF" Version="20.2.16" />
+    <PackageReference Include="Infragistics.WPF.Ribbon" Version="20.2.16" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
     <PackageReference Include="SharpVectors" Version="1.7.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\ResourceStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceStrings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ResourceStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Alert.svg" />
+    <Resource Include="Assets\chevron_down.svg" />
+    <Resource Include="Assets\Close.svg" />
+    <Resource Include="Assets\Delete.svg" />
+    <Resource Include="Assets\KO.svg" />
+    <Resource Include="Assets\OK.svg" />
   </ItemGroup>
 </Project>

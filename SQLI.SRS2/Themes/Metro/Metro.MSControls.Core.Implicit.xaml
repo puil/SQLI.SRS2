@@ -97,8 +97,8 @@
     <Setter Property="FontSize" Value="14.667" />
     <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
     <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-    </Style>
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+  </Style>
 
   <!-- *********************************  SliderRepeatButton Style  ********************************* -->
   <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">

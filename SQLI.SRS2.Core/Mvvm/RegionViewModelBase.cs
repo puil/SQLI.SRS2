@@ -11,7 +11,7 @@ namespace SQLI.SRS2.Core.Mvvm
         
         public string Title { get; set; }
         public bool IsActive { get => IsActive; set => SetProperty(ref isActive, value); }
-
+        
         public RegionViewModelBase(IRegionManager regionManager)
         {
             RegionManager = regionManager;
